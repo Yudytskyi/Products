@@ -18,7 +18,8 @@
     "url": "git+https://github.com/Yudytskyi/Products.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "dev": "nodemon server.js ",
+    "start": "node server.js"
   },
   "bugs": {
     "url": "https://github.com/Yudytskyi/Products/issues"
@@ -30,6 +31,7 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0"
   }
 }
