@@ -3,35 +3,58 @@ const yup = require('yup');
 const PRODUCT_CREATE_SCHEMA = yup
   .object()
   .shape({
-    name: yup.string().trim().required(),
-    weight: yup.number().positive().integer().required(),
-    color: yup.string().trim().required(),
-    price: yup.number().positive().required(),
-    dualSim: yup.boolean(),
-    graphicsCard: yup.string(),
+    data: yup.object().shape({
+      name: yup.string(),
+      typeName: yup.string().trim(),
+      attributes: yup.object().shape({
+        weight: yup.number().positive().integer().required(),
+        color: yup.string().trim().required(),
+        price: yup.number().positive().required(),
+        dualSim: yup.boolean(),
+        graphicsCard: yup.string(),
+      }),
+    }),
   })
+
   .noUnknown({ unknownKey: true });
 
-const PRODUCT_UPDATE_SCHEMA = yup
-  .object()
-  .shape({
-    name: yup.string().trim(),
-    weight: yup.number().positive().integer(),
-    color: yup.string().trim(),
-    price: yup.number().positive(),
-    dualSim: yup.boolean(),
-    graphicsCard: yup.string(),
-  })
-  .noUnknown({ unknownKey: true });
-
-module.exports.validateOnCreate = async ({ body }, res, next) => {
+module.exports.validateOnCreate = async (req, res, next) => {
+  const { body } = req;
+  await PRODUCT_CREATE_SCHEMA.validate(body);
+  const {
+    data: {
+      typeName,
+      attributes: { graphicsCard, dualSim },
+    },
+  } = body;
   try {
-    body = await PRODUCT_CREATE_SCHEMA.validate(body);
+    switch (typeName) {
+      case 'phone':
+        if (graphicsCard) {
+          res
+            .status(400)
+            .send('The phone does not have a graphicsCard attribute');
+        }
+        break;
+      case 'tablet':
+        if (graphicsCard || dualSim) {
+          res.status(400).send('The tablet has no additional attributes');
+        }
+        break;
+      case 'laptop':
+        if (dualSim) {
+          res.status(400).send('The laptop does not have a dualSim attribute');
+        }
+        break;
+      default:
+        res.status(400).send('ProductType does not exist or is incorrect');
+        break;
+    }
     next();
   } catch (err) {
     res.status(400).send({
       data: {
-        message: err.message || massage,
+        message: err.message ?? massage,
       },
     });
   }
@@ -39,13 +62,6 @@ module.exports.validateOnCreate = async ({ body }, res, next) => {
 
 module.exports.validateOnUpdate = async ({ body }, res, next) => {
   try {
-    body = await PRODUCT_UPDATE_SCHEMA.validate(body);
     next();
-  } catch (err) {
-    res.status(400).send({
-      data: {
-        message: err.message || massage,
-      },
-    });
-  }
+  } catch (err) {}
 };

@@ -3,13 +3,13 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku137",
-    "typeName": "phone",
+    "name": "sku150",
+    "typeName": "laptop",
     "attributes": {
       "weight": 125,
       "color": "color125",
       "price": 125.25,
-      "dualSim": false
+      "graphicsCard": "pioaspihg"
     }
   }
 }
