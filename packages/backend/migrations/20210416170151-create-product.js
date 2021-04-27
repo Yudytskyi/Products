@@ -11,28 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING(256),
         allowNull: false,
-        validate: {
-          notNull: {
-            msg: 'Please enter product name',
-          },
-        },
-      },
-      weight: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      color: {
-        type: Sequelize.STRING(64),
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: 'Please enter product color',
-          },
-        },
-      },
-      price: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
+        unique: true,
       },
       createdAt: {
         allowNull: false,

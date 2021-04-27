@@ -1,0 +1,14 @@
+POST http://localhost:5000/api/0.0.1/products
+Content-Type: application/json
+
+{
+    "data": {
+      "product": [
+            {"name": "sku121"},
+            {"name": "sku122"},
+            {"name": "sku123"},
+            {"name": "sku124"},
+            {"name": "sku125"}
+      ]
+    }
+} 

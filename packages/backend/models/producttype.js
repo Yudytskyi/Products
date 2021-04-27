@@ -2,44 +2,27 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ProductType extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      ProductType.belongsToMany(models.Product, {
+        through: {
+          model: models.ProductInType,
+          unique: true,
+        },
+        as: {
+          singular: 'product',
+          plural: 'products',
+        },
+      });
     }
   }
   ProductType.init(
     {
       type_name: {
+        allowNull: false,
         type: DataTypes.ENUM({
           values: ['phone', 'tablet', 'laptop'],
         }),
-        allowNull: false,
-      },
-      dualSim: {
-        type: DataTypes.BOOLEAN,
-        field: 'dual_sim',
-        validate: {
-          isPhone() {
-            if (this.type_name !== 'phone') {
-              throw new Error('This product has no dualSim attribute');
-            }
-          },
-        },
-      },
-      videoCard: {
-        type: DataTypes.STRING(256),
-        field: 'video_card',
-        validate: {
-          isLaptop() {
-            if (this.type_name !== 'laptop') {
-              throw new Error('This product has no videoCard attribute');
-            }
-          },
-        },
+        unique: true,
       },
     },
     {

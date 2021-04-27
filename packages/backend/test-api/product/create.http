@@ -1,0 +1,17 @@
+POST http://localhost:5000/api/0.0.1/product
+Content-Type: application/json
+
+{
+  "data": {
+    "name": "sku137",
+    "typeName": "phone",
+    "attributes": {
+      "weight": 125,
+      "color": "color125",
+      "price": 125.25,
+      "dualSim": false
+    }
+  }
+}
+
+

@@ -1,11 +1,11 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "Yudytskyi <uan0503631989@gmail.com>",
   "homepage": "https://github.com/Yudytskyi/Products#readme",
   "license": "ISC",
-  "main": "lib/backend.js",
+  "main": "lib/server.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -26,9 +26,12 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "lodash": "^4.17.21",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
