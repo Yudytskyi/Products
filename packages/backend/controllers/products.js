@@ -1,4 +1,4 @@
-const { Product, ProductType } = require('../models');
+const { sequelize, Product, ProductType } = require('../models');
 const createError = require('http-errors');
 const _ = require('lodash');
 
@@ -8,21 +8,31 @@ exports.create = async (req, res, next) => {
       data: { name, typeName, attributes },
     },
   } = req;
+
   try {
-    const productTypeInstance = await ProductType.findOne({
+    const transaction = await sequelize.transaction();
+
+    const productType = await ProductType.findOne({
       where: { type_name: typeName },
-    });
-    const productInstance = await Product.create({ name });
-
-    const result = await productTypeInstance.addProducts(productInstance, {
-      through: { ...name, ...attributes, ...typeName },
+      transaction,
     });
 
-    result
-      ? res.status(201).send({
-          data: { result },
-        })
-      : next(createError(400));
+    const product = await Product.create({ name }, { transaction });
+
+    const result = await productType.addProducts(product, {
+      through: attributes,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      transaction,
+    });
+
+    if (result) {
+      transaction.commit();
+      res.status(201).send({ result });
+    } else {
+      transaction.rollback();
+      next(createError(400));
+    }
   } catch (err) {
     return next(err);
   }
