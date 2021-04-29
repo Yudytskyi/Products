@@ -5,7 +5,7 @@ const productsRouter = Router();
 
 productsRouter.post(
   '/product',
-  // validateProduct.validateOnCreate,
+  validateProduct.validateOnCreate,
   productsController.create
 );
 

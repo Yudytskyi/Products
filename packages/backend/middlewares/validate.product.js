@@ -1,4 +1,11 @@
 const yup = require('yup');
+const _ = require('lodash');
+const createError = require('http');
+const {
+  db: {
+    productTypes: { productTypeNames },
+  },
+} = require('../config/db.json');
 
 const PRODUCT_CREATE_SCHEMA = yup
   .object()
@@ -15,7 +22,6 @@ const PRODUCT_CREATE_SCHEMA = yup
       }),
     }),
   })
-
   .noUnknown({ unknownKey: true });
 
 module.exports.validateOnCreate = async (req, res, next) => {
@@ -24,38 +30,24 @@ module.exports.validateOnCreate = async (req, res, next) => {
   const {
     data: {
       typeName,
-      attributes: { graphicsCard, dualSim },
+      attributes,
+      /* the attributes are used by the eval function */
     },
   } = body;
   try {
-    switch (typeName) {
-      case 'phone':
-        if (graphicsCard) {
-          res
-            .status(400)
-            .send('The phone does not have a graphicsCard attribute');
+    for (const name in productTypeNames) {
+      if (name === typeName) {
+        const { check } = productTypeNames[name];
+        if (eval(check)) {
+          res.status(400).send('Entered incorrect attributes');
+          next(createError(400));
         }
-        break;
-      case 'tablet':
-        if (graphicsCard || dualSim) {
-          res.status(400).send('The tablet has no additional attributes');
-        }
-        break;
-      case 'laptop':
-        if (dualSim) {
-          res.status(400).send('The laptop does not have a dualSim attribute');
-        }
-        break;
-      default:
-        res.status(400).send('ProductType does not exist or is incorrect');
-        break;
+      }
     }
     next();
   } catch (err) {
     res.status(400).send({
-      data: {
-        message: err.message ?? massage,
-      },
+      message: err.message ?? massage,
     });
   }
 };
