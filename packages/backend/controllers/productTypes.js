@@ -2,32 +2,35 @@ const { ProductType } = require('../models');
 const createError = require('http-errors');
 
 exports.create = async (req, res, next) => {
-  const {} = req;
-  try {
-  } catch (err) {
-    return next(err);
-  }
-};
-
-exports.bulkCreate = async (req, res, next) => {
   const {
     body: {
-      data: { productType },
+      data: { typeName },
     },
   } = req;
   try {
-    const result = await ProductType.bulkCreate(productType, {
-      exclude: ['createdAt', 'updatedAt'],
-    });
-    result ? res.status(201).send({ data: result }) : next(createError(400));
+    res.status(201).send(`created ProductType with name "${typeName}"`);
   } catch (err) {
     return next(err);
   }
 };
 
 exports.getById = async (req, res, next) => {
-  const {} = req;
+  const {
+    params: { productTypeId },
+  } = req;
   try {
+    res.status(200).send(`productType whit id:${productTypeId}`);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.deleteById = async (req, res, next) => {
+  const {
+    params: { productTypeId },
+  } = req;
+  try {
+    res.status(200).send(`deleted productType whit id:${productTypeId}`);
   } catch (err) {
     return next(err);
   }
@@ -36,30 +39,16 @@ exports.getById = async (req, res, next) => {
 exports.getMany = async (req, res, next) => {
   const {} = req;
   try {
+    res.status(200).send('All productTypes...');
   } catch (err) {
     return next(err);
   }
 };
 
-exports.updateById = async (req, res, next) => {
+exports.bulkDelete = async (req, res, next) => {
   const {} = req;
   try {
-  } catch (err) {
-    return next(err);
-  }
-};
-
-exports.deleteProductById = async (req, res, next) => {
-  const {} = req;
-  try {
-  } catch (err) {
-    return next(err);
-  }
-};
-
-exports.bulkDeleteProduct = async ({}, res, next) => {
-  const {} = req;
-  try {
+    res.status(200).send('All productTypes is removed...');
   } catch (err) {
     return next(err);
   }
