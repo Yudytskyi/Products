@@ -13,12 +13,11 @@ productsRouter
   .route('/product/:productId')
   .get(productsController.getById)
   .put(validateProduct.validateOnUpdate, productsController.updateById)
-  .delete(productsController.deleteProductById);
+  .delete(productsController.deleteById);
 
 productsRouter
   .route('/products')
-  .post(productsController.bulkCreate)
   .get(productsController.getMany)
-  .delete(productsController.bulkDeleteProduct);
+  .delete(productsController.bulkDelete);
 
 module.exports = productsRouter;

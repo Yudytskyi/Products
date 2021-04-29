@@ -1,24 +1,20 @@
 const { Router } = require('express');
-const typesController = require('../controllers/productTypes');
-// const { validateProduct } = require('../middlewares');
-const typesRouter = Router();
+const productTypesController = require('../controllers/productTypes');
+const { validateProduct } = require('../middlewares');
+const productTypesRouter = Router();
 
-typesRouter.post(
-  '/productType',
-  // validateProduct.validateOnCreate,
-  typesController.create
-);
+productTypesRouter
+  .route('/productType')
+  .post(validateProduct.validateOnCreate, productTypesController.create);
 
-// typesRouter
-//   .route('/productType/:productId')
-//   .get(typesController.getById)
-//   .put(validateProduct.validateOnUpdate, typesController.updateById)
-//   .delete(typesController.deleteProductById);
+productTypesRouter
+  .route('/productType/:productTypeId')
+  .get(productTypesController.getById)
+  .delete(productTypesController.deleteById);
 
-typesRouter
+productTypesRouter
   .route('/productTypes')
-  .post(typesController.bulkCreate)
-  .get(typesController.getMany)
-  .delete(typesController.bulkDeleteProduct);
+  .get(productTypesController.getMany)
+  .delete(productTypesController.bulkDelete);
 
-module.exports = typesRouter;
+module.exports = productTypesRouter;
