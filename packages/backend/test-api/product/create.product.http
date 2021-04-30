@@ -3,14 +3,19 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku13200",
-    "typeName": "tablet",
+    "name": "sku137",
+    "typeName": "laptop",
     "attributes": {
-      "weight": 1125,
-      "color": "color125",
-      "price": 124.25
+      "weight": 1137,
+      "color": "color137",
+      "price": 137.37,
+      "graphicsCard": "cool graphicsCard137"
     }
   }
 }
 
 
+
+# "graphicsCard": "cool graphicsCard136"
+# "dualSim": true
+# "dualSim": false

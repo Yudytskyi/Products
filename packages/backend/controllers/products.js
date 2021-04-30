@@ -1,7 +1,7 @@
 const { sequelize, Product, ProductType, ProductInType } = require('../models');
 const createError = require('http-errors');
-const _ = require('lodash');
-
+const removeEmptyObjects = require('../services/removeEmptyObjects');
+const {} = require('../config/db.json')
 exports.create = async (req, res, next) => {
   const {
     body: {
@@ -43,45 +43,41 @@ exports.getById = async (req, res, next) => {
     params: { productId },
   } = req;
   try {
-    const product = await Product.findByPk(productId, {
+    const allProducts = await Product.findByPk(productId, {
       attributes: ['id', 'name'],
       include: [
         {
           model: ProductType,
           as: 'product_types',
-          attributes: ['type_name'],
+          attributes: ['id', 'type_name'],
           through: {
-            attributes: ['weight', 'color', 'price', 'dualSim'],
+            attributes: ['weight', 'color', 'price', 'dualSim', 'graphicsCard'],
           },
         },
       ],
     });
 
-    const {
-      dataValues: {
-        id,
-        name,
-        product_types: [
-          {
-            dataValues: {
-              type_name,
-              ProductInType: { dataValues: attributes },
-            },
-          } = ProductInType,
-        ] = [dataValues],
-      },
-    } = product;
+    if (allProducts) {
+      const productData = removeEmptyObjects(allProducts.dataValues);
+      const productTypeData = removeEmptyObjects(
+        productData.product_types[0].dataValues
+      );
+      const attributesData = removeEmptyObjects(
+        productTypeData.ProductInType.dataValues
+      );
 
-    const prepareProduct = {
-      id,
-      name,
-      type_name,
-      ...attributes,
-    };
-
-    product
-      ? res.status(200).send({ data: { ...prepareProduct } })
-      : res.status(400).send(`Product by id:${productId} does not exist`);
+      const prepareProducts = {
+        product: { id: productData.id, name: productData.name },
+        productType: {
+          id: productTypeData.id,
+          typeName: productTypeData.type_name,
+        },
+        attributes: attributesData,
+      };
+      res.status(200).send({ data: prepareProducts });
+    } else {
+      res.status(400).send(`Product by id:${productId} does not exist`);
+    }
   } catch (err) {
     return next(err);
   }
@@ -104,7 +100,7 @@ exports.getMany = async (req, res, next) => {
       ],
     });
 
-    allProduct.length
+    allProducts.length
       ? res.status(200).send({ data: { allProduct } })
       : res.status(400).send('Table Product is empty');
   } catch (err) {

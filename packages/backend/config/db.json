@@ -1,7 +1,9 @@
 {
   "db": {
+    "product": {"id": "INTEGER", "name": "STRING(256)"},
     "productTypes":  {
-      "productTypeNames":{
+      "id": "INTEGER",
+      "typeName": {
         "phone": {
           "check": "attributes.graphicsCard"
         },
@@ -11,7 +13,14 @@
         "laptop": {
           "check":"attributes.dualSim"
         }
-      } 
+      } ,
+      "attributes":{
+        "weight": "INTEGER",
+        "color": "STRING(64)",
+        "price": "FLOAT",
+        "dualSim": "BOOLEAN",
+        "graphicsCard": "STRING(256)"
+      }
     }
   }
 }
