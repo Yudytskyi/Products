@@ -3,13 +3,12 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku137",
-    "typeName": "laptop",
+    "name": "sku202",
+    "typeName": "tablet",
     "attributes": {
       "weight": 1137,
       "color": "color137",
-      "price": 137.37,
-      "graphicsCard": "cool graphicsCard137"
+      "price": 137.37
     }
   }
 }
