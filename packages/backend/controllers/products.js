@@ -122,8 +122,9 @@ exports.getMany = async (req, res, next) => {
         const productInType = productType.ProductInType.dataValues;
 
         preparedAllProducts.push({
-          ..._.pick(product, ['id', 'name']),
-          ..._.pick(productType, ['type_name']),
+          productId: product.id,
+          namae: product.name,
+          typeName: productType.type_name,
           ..._.pick(productInType, includesFields),
         });
       });
