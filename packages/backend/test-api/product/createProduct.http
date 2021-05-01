@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku203",
+    "name": "sku204",
     "typeName": "tablet",
     "attributes": {
       "weight": 1137,

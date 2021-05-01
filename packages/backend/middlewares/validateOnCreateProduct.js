@@ -8,7 +8,7 @@ const {
   },
 } = require('../config/db.json');
 
-module.exports.validateOnCreate = async (req, res, next) => {
+const validateOnCreateProduct = async (req, res, next) => {
   const {
     body,
     body: {
@@ -33,8 +33,4 @@ module.exports.validateOnCreate = async (req, res, next) => {
   }
 };
 
-module.exports.validateOnUpdate = async ({ body }, res, next) => {
-  try {
-    next();
-  } catch (err) {}
-};
+module.exports = validateOnCreateProduct;

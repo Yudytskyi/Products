@@ -1,23 +1,28 @@
 const { Router } = require('express');
-const productsController = require('../controllers/products');
-const { validateProduct } = require('../middlewares');
+const {
+  createProduct,
+  getByIdProduct,
+  getAllProducts,
+  updateByIdProduct,
+  deleteByIdProduct,
+  deleteAllProducts,
+} = require('../controllers');
+
+const {
+  validateOnCreateProduct,
+  validateOnUpdateProduct,
+} = require('../middlewares');
+
 const productsRouter = Router();
 
-productsRouter.post(
-  '/product',
-  validateProduct.validateOnCreate,
-  productsController.create
-);
+productsRouter.post('/product', validateOnCreateProduct, createProduct);
 
 productsRouter
   .route('/product/:productId')
-  .get(productsController.getById)
-  .put(validateProduct.validateOnUpdate, productsController.updateById)
-  .delete(productsController.deleteById);
+  .get(getByIdProduct)
+  .put(validateOnUpdateProduct, updateByIdProduct)
+  .delete(deleteByIdProduct);
 
-productsRouter
-  .route('/products')
-  .get(productsController.getMany)
-  .delete(productsController.bulkDelete);
+productsRouter.route('/products').get(getAllProducts).delete(deleteAllProducts);
 
 module.exports = productsRouter;

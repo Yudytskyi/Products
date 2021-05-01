@@ -1,2 +1,4 @@
-module.exports.validateProduct = require('./validate.product');
-module.exports.errorHandler = require('./error.handler');
+module.exports.validateOnCreateProduct = require('./validateOnCreateProduct');
+module.exports.validateOnUpdateProduct = require('./validateOnUpdateProduct');
+
+module.exports.errorHandler = require('./errorHandler');
