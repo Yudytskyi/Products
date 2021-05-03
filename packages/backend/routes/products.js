@@ -20,7 +20,7 @@ productsRouter.post('/product', validateOnCreateProduct, createProduct);
 productsRouter
   .route('/product/:productId')
   .get(getByIdProduct)
-  .put(validateOnUpdateProduct, updateByIdProduct)
+  .patch(validateOnUpdateProduct, updateByIdProduct)
   .delete(deleteByIdProduct);
 
 productsRouter.route('/products').get(getAllProducts).delete(deleteAllProducts);

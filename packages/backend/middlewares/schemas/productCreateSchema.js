@@ -1,9 +1,9 @@
 'use strict';
 const yup = require('yup');
 
-const productCreateSchemas = {};
+const productCreateSchema = {};
 
-productCreateSchemas.phone = yup
+productCreateSchema.phone = yup
   .object()
   .shape({
     data: yup.object().shape({
@@ -19,7 +19,7 @@ productCreateSchemas.phone = yup
   })
   .noUnknown({ unknownKey: true });
 
-productCreateSchemas.tablet = yup
+productCreateSchema.tablet = yup
   .object()
   .shape({
     data: yup.object().shape({
@@ -34,7 +34,7 @@ productCreateSchemas.tablet = yup
   })
   .noUnknown({ unknownKey: true });
 
-productCreateSchemas.laptop = yup
+productCreateSchema.laptop = yup
   .object()
   .shape({
     data: yup.object().shape({
@@ -50,4 +50,4 @@ productCreateSchemas.laptop = yup
   })
   .noUnknown({ unknownKey: true });
 
-module.exports = productCreateSchemas;
+module.exports = productCreateSchema;

@@ -1,6 +1,14 @@
-PUT http://localhost:5000/api/0.0.1/product/239
+PATCH http://localhost:5000/api/0.0.1/product/6
 Content-Type: application/json
 
 {
-    "name": "notebook"
+  "data": {
+    "name": "skuUpdated6",
+    "typeName": "tablet",
+    "attributes": {
+      "weight": 1006,
+      "color": "colorUpdated6",
+      "price": 1006.06
+    }
+  }
 }

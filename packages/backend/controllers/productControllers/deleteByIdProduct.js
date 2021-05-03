@@ -1,31 +1,16 @@
-const { sequelize, Product, ProductType } = require('../../models');
-const createError = require('http-errors');
-const _ = require('lodash');
-
-const {
-  db: {
-    fields: { includesFields, excludesFields },
-  },
-} = require('../../config/db.json');
-
-const include = [
-  {
-    model: ProductType,
-    as: 'product_types',
-    attributes: ['id', 'type_name'],
-    returning: true,
-    through: {
-      attributes: includesFields,
-    },
-  },
-];
+const { Product } = require('../../models');
 
 const deleteByIdProducts = async (req, res, next) => {
   const {
     params: { productId },
   } = req;
   try {
-    res.status(200).send(`Product by id:${productId} deleted`);
+    const productInstance = await Product.findByPk(productId);
+
+    productInstance
+      ? (await productInstance.destroy()) &&
+        res.status(200).send(`Product by id:${productId} deleted`)
+      : res.status(404).send(`Product by id: ${productId} does not exist`);
   } catch (err) {
     return next(err);
   }

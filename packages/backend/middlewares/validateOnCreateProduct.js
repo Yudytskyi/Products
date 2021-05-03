@@ -1,7 +1,7 @@
 const createError = require('http');
 const _ = require('lodash');
 
-const { productCreateSchemas } = require('./schemas');
+const { productCreateSchema } = require('./schemas');
 const {
   db: {
     productTypes: { typeName: productTypeNames },
@@ -17,7 +17,7 @@ const validateOnCreateProduct = async (req, res, next) => {
     },
   } = req;
   try {
-    await productCreateSchemas[typeName].validate(body);
+    await productCreateSchema[typeName].validate(body);
 
     const { check } = productTypeNames[typeName];
     if (eval(check)) {

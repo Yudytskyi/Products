@@ -1,24 +1,11 @@
-const { sequelize, Product, ProductType } = require('../../models');
-const createError = require('http-errors');
+const { Product, ProductType } = require('../../models');
 const _ = require('lodash');
 
 const {
   db: {
-    fields: { includesFields, excludesFields },
+    fields: { includesFields },
   },
 } = require('../../config/db.json');
-
-const include = [
-  {
-    model: ProductType,
-    as: 'product_types',
-    attributes: ['id', 'type_name'],
-    returning: true,
-    through: {
-      attributes: includesFields,
-    },
-  },
-];
 
 const getAllProducts = async (req, res, next) => {
   try {
@@ -40,20 +27,20 @@ const getAllProducts = async (req, res, next) => {
     if (allProducts.length) {
       const preparedAllProducts = [];
 
-      allProducts.forEach(pr => {
-        const product = pr.dataValues;
-        const productType = product.product_types[0].dataValues;
-        const productInType = productType.ProductInType.dataValues;
+      allProducts.forEach(product => {
+        const productData = product.dataValues;
+        const productTypeData = product.product_types[0].dataValues;
+        const productInTypeData = productTypeData.ProductInType.dataValues;
 
         preparedAllProducts.push({
-          productId: product.id,
-          namae: product.name,
-          typeName: productType.type_name,
-          ..._.pick(productInType, includesFields),
+          productId: productData.id,
+          name: productData.name,
+          typeName: productTypeData.type_name,
+          ..._.pick(productInTypeData, includesFields),
         });
       });
 
-      res.status(200).send({ data: { preparedAllProducts } });
+      res.status(200).send({ data: preparedAllProducts });
     } else {
       res.status(400).send('Table Product is empty');
     }

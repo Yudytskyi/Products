@@ -1,24 +1,11 @@
-const { sequelize, Product, ProductType } = require('../../models');
-const createError = require('http-errors');
+const { Product, ProductType } = require('../../models');
 const _ = require('lodash');
 
 const {
   db: {
-    fields: { includesFields, excludesFields },
+    fields: { includesFields },
   },
 } = require('../../config/db.json');
-
-const include = [
-  {
-    model: ProductType,
-    as: 'product_types',
-    attributes: ['id', 'type_name'],
-    returning: true,
-    through: {
-      attributes: includesFields,
-    },
-  },
-];
 
 const getById = async (req, res, next) => {
   const {
@@ -27,23 +14,33 @@ const getById = async (req, res, next) => {
   try {
     const productInstance = await Product.findByPk(productId, {
       attributes: ['id', 'name'],
-      include,
+      include: [
+        {
+          model: ProductType,
+          as: 'product_types',
+          attributes: ['id', 'type_name'],
+          returning: true,
+          through: {
+            attributes: includesFields,
+          },
+        },
+      ],
     });
 
     if (productInstance) {
       const productData = productInstance.dataValues;
       const productTypeData = productData.product_types[0].dataValues;
-      const attributesData = productTypeData.ProductInType.dataValues;
+      const productInTypeData = productTypeData.ProductInType.dataValues;
 
       const prepareProducts = {
         productId: productData.id,
         name: productData.name,
         typeName: productTypeData.type_name,
-        ...attributesData,
+        ...productInTypeData,
       };
       res.status(200).send({ data: prepareProducts });
     } else {
-      res.status(400).send(`Product by id:${productId} does not exist`);
+      res.status(404).send(`Product by id: ${productId} does not exist`);
     }
   } catch (err) {
     return next(err);

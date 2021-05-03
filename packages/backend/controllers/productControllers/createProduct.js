@@ -4,21 +4,9 @@ const _ = require('lodash');
 
 const {
   db: {
-    fields: { includesFields, excludesFields },
+    fields: { includesFields },
   },
 } = require('../../config/db.json');
-
-const include = [
-  {
-    model: ProductType,
-    as: 'product_types',
-    attributes: ['id', 'type_name'],
-    returning: true,
-    through: {
-      attributes: includesFields,
-    },
-  },
-];
 
 const createProduct = async (req, res, next) => {
   const {
@@ -55,6 +43,7 @@ const createProduct = async (req, res, next) => {
         type_name: productTypeInstance.dataValues.type_name,
         ..._.pick(productInTypeInstance[0].dataValues, includesFields),
       };
+
       transaction.commit();
       res.status(201).send({ data: preparedProducts });
     } else {

@@ -1,7 +1,7 @@
 const createError = require('http');
 const _ = require('lodash');
 
-const { productCreateSchemas } = require('./schemas');
+const { productCreateSchema } = require('./schemas');
 const {
   db: {
     productTypes: { typeName: productTypeNames },

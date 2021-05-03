@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku204",
+    "name": "sku205",
     "typeName": "tablet",
     "attributes": {
       "weight": 1137,
@@ -15,6 +15,13 @@ Content-Type: application/json
 
 
 
+
+# "typeName": "laptop",
 # "graphicsCard": "cool graphicsCard136"
+
+
+# "typeName": "tablet",
+
+# "typeName": "phone",
 # "dualSim": true
 # "dualSim": false

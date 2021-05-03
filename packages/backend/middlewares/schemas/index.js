@@ -1,1 +1,1 @@
-module.exports.productCreateSchemas = require('./product.schema');
+module.exports.productCreateSchema = require('./productCreateSchema');
