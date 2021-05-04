@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
           model: Attribute,
           unique: true,
         },
-      });
+      }),
+        ProductType.hasMany(Attribute);
     }
   }
   ProductType.init(
