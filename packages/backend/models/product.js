@@ -2,15 +2,11 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
-    static associate(models) {
-      Product.belongsToMany(models.ProductType, {
+    static associate({ ProductType, Attribute }) {
+      Product.belongsToMany(ProductType, {
         through: {
-          model: models.ProductInType,
+          model: Attribute,
           unique: true,
-        },
-        as: {
-          singular: 'product_type',
-          plural: 'product_types',
         },
       });
     }

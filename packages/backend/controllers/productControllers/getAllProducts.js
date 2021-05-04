@@ -30,13 +30,13 @@ const getAllProducts = async (req, res, next) => {
       allProducts.forEach(product => {
         const productData = product.dataValues;
         const productTypeData = product.product_types[0].dataValues;
-        const productInTypeData = productTypeData.ProductInType.dataValues;
+        const attributeData = productTypeData.Attribute.dataValues;
 
         preparedAllProducts.push({
           productId: productData.id,
           name: productData.name,
           typeName: productTypeData.type_name,
-          ..._.pick(productInTypeData, includesFields),
+          ..._.pick(attributeData, includesFields),
         });
       });
 

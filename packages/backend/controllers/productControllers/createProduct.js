@@ -1,4 +1,4 @@
-const { sequelize, Product, ProductType } = require('../../models');
+const { sequelize, Product, ProductType, Attribute } = require('../../models');
 const createError = require('http-errors');
 const _ = require('lodash');
 
@@ -25,31 +25,36 @@ const createProduct = async (req, res, next) => {
 
     const productInstance = await Product.create({ name }, { transaction });
 
-    const productInTypeInstance = await productTypeInstance.addProducts(
+    const [attributeInstance] = await productTypeInstance.addProducts(
       productInstance,
       {
         through: attributes,
-        returning: true,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
         transaction,
       }
     );
 
-    if (productInTypeInstance) {
-      const preparedProducts = {
-        productId: productInstance.dataValues.id,
-        name: productInstance.dataValues.name,
-        type_name: productTypeInstance.dataValues.type_name,
-        ..._.pick(productInTypeInstance[0].dataValues, includesFields),
-      };
+    attributeInstance
+      ? await transaction.commit()
+      : (await transaction.rollback(), next(createError(400)));
 
-      transaction.commit();
-      res.status(201).send({ data: preparedProducts });
-    } else {
-      transaction.rollback();
-      next(createError(400));
-    }
+    const {
+      dataValues: { productId: product_id, productTypeId: product_type_id },
+    } = attributeInstance;
+
+    const { dataValues: newProduct } = await Attribute.findOne({
+      where: { product_id, product_type_id },
+      attributes: includesFields,
+      include: [Product, ProductType],
+    });
+
+    const preparedProduct = {
+      productId: product_id,
+      name: newProduct.Product.get('name'),
+      type_name: newProduct.ProductType.get('type_name'),
+      ..._.pick(newProduct, includesFields),
+    };
+
+    res.status(201).send({ data: preparedProduct });
   } catch (err) {
     return next(err);
   }

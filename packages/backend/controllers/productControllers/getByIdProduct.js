@@ -1,4 +1,4 @@
-const { Product, ProductType } = require('../../models');
+const { Product, ProductType, Attribute } = require('../../models');
 const _ = require('lodash');
 
 const {
@@ -12,17 +12,35 @@ const getById = async (req, res, next) => {
     params: { productId },
   } = req;
   try {
-    const productInstance = await Product.findByPk(productId, {
-      attributes: ['id', 'name'],
+    // const productInstance = await Product.findByPk(productId, {
+    //   attributes: ['id', 'name'],
+    //   include: [
+    //     {
+    //       model: ProductType,
+    //       as: 'product_types',
+    //       attributes: ['id', 'type_name'],
+    //       returning: true,
+    //       through: {
+    //         attributes: includesFields,
+    //       },
+    //     },
+    //   ],
+    // });
+
+    const productInstance = await Attribute.findOne({
+      where: {
+        product_id: productId,
+        product_type_id: productTypeId,
+      },
+      attributes: includesFields,
       include: [
         {
           model: ProductType,
-          as: 'product_types',
-          attributes: ['id', 'type_name'],
-          returning: true,
-          through: {
-            attributes: includesFields,
-          },
+          attributes: ['type_name'],
+        },
+        {
+          model: Product,
+          attributes: ['id', 'name'],
         },
       ],
     });
