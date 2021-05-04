@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'product_type_id',
         references: {
-          model: { tableName: 'product_types' },
+          model: { tableName: 'productTypes' },
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -34,21 +34,21 @@ module.exports = {
       },
       dualSim: {
         type: Sequelize.BOOLEAN,
-        field: 'dual_sim',
+        field: 'dualSim',
       },
       graphicsCard: {
         type: Sequelize.STRING(256),
-        field: 'graphics_card',
+        field: 'graphicsCard',
       },
       createdAt: {
+        field: 'created_at',
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
         defaultValue: new Date(),
       },
       updatedAt: {
-        type: Sequelize.DATE,
         field: 'updated_at',
+        type: Sequelize.DATE,
       },
     });
   },

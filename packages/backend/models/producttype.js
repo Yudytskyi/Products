@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   ProductType.init(
     {
-      type_name: {
+      typeName: {
+        field: 'typeName',
         allowNull: false,
         type: DataTypes.ENUM({
           values: ['phone', 'tablet', 'laptop'],
@@ -25,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'ProductType',
       underscored: true,
-      tableName: 'product_types',
+      tableName: 'productTypes',
     }
   );
   return ProductType;

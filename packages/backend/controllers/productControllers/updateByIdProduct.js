@@ -28,7 +28,7 @@ const updateByIdProducts = async (req, res, next) => {
       res.status(404).send(`Product by id: ${productId} does not exist`);
     }
     const productTypeInstance = await ProductType.findOne({
-      where: { type_name: typeName },
+      where: { typeName: typeName },
     });
     const productTypeId = productTypeInstance.get('id');
     const productInTypeInstance = await ProductInType.findOne({

@@ -14,14 +14,14 @@ module.exports = {
         unique: true,
       },
       createdAt: {
+        field: 'created_at',
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
         defaultValue: new Date(),
       },
       updatedAt: {
-        type: Sequelize.DATE,
         field: 'updated_at',
+        type: Sequelize.DATE,
       },
     });
   },

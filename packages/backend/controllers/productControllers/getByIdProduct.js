@@ -1,5 +1,6 @@
-const { Product, ProductType, Attribute } = require('../../models');
 const _ = require('lodash');
+
+const { Product, ProductType, Attribute } = require('../../models');
 
 const {
   db: {
@@ -12,49 +13,19 @@ const getById = async (req, res, next) => {
     params: { productId },
   } = req;
   try {
-    // const productInstance = await Product.findByPk(productId, {
-    //   attributes: ['id', 'name'],
-    //   include: [
-    //     {
-    //       model: ProductType,
-    //       as: 'product_types',
-    //       attributes: ['id', 'type_name'],
-    //       returning: true,
-    //       through: {
-    //         attributes: includesFields,
-    //       },
-    //     },
-    //   ],
-    // });
-
-    const productInstance = await Attribute.findOne({
-      where: {
-        product_id: productId,
-        product_type_id: productTypeId,
-      },
-      attributes: includesFields,
-      include: [
-        {
-          model: ProductType,
-          attributes: ['type_name'],
-        },
-        {
-          model: Product,
-          attributes: ['id', 'name'],
-        },
-      ],
+    const { dataValues: product } = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
     });
 
-    if (productInstance) {
-      const productData = productInstance.dataValues;
-      const productTypeData = productData.product_types[0].dataValues;
-      const productInTypeData = productTypeData.ProductInType.dataValues;
+    if (product) {
+      const typeName = product.ProductTypes[0].dataValues.typeName;
+      const attributes = product.Attributes[0].dataValues;
 
       const prepareProducts = {
-        productId: productData.id,
-        name: productData.name,
-        typeName: productTypeData.type_name,
-        ...productInTypeData,
+        productId,
+        name: product.name,
+        typeName,
+        ..._.pick(attributes, includesFields),
       };
       res.status(200).send({ data: prepareProducts });
     } else {

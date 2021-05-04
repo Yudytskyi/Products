@@ -1,6 +1,5 @@
 const { sequelize, Product, ProductType } = require('../../models');
 const createError = require('http-errors');
-const _ = require('lodash');
 
 const {
   db: {
@@ -11,8 +10,8 @@ const {
 const include = [
   {
     model: ProductType,
-    as: 'product_types',
-    attributes: ['id', 'type_name'],
+    as: 'productTypes',
+    attributes: ['id', 'typeName'],
     returning: true,
     through: {
       attributes: includesFields,

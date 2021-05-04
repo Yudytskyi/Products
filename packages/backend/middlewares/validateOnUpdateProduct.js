@@ -1,5 +1,4 @@
 const createError = require('http');
-const _ = require('lodash');
 
 const { productCreateSchema } = require('./schemas');
 const {

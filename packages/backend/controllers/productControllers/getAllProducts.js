@@ -16,7 +16,7 @@ const getAllProducts = async (req, res, next) => {
         {
           model: ProductType,
           as: 'product_types',
-          attributes: ['type_name'],
+          attributes: ['typeName'],
           through: {
             attributes: includesFields,
           },
@@ -35,7 +35,7 @@ const getAllProducts = async (req, res, next) => {
         preparedAllProducts.push({
           productId: productData.id,
           name: productData.name,
-          typeName: productTypeData.type_name,
+          typeName: productTypeData.typeName,
           ..._.pick(attributeData, includesFields),
         });
       });

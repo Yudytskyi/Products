@@ -4,10 +4,10 @@ module.exports = {
     await queryInterface.addConstraint('attributes', {
       fields: ['product_id', 'product_type_id'],
       type: 'unique',
-      name: 'foreign_pkey',
+      name: 'foreignPkey',
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeConstraint('attributes', 'foreign_pkey');
+    await queryInterface.removeConstraint('attributes', 'foreignPkey');
   },
 };

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_types', {
+    await queryInterface.createTable('productTypes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       typeName: {
-        field: 'type_name',
+        field: 'typeName',
         allowNull: false,
         type: Sequelize.ENUM({
           values: ['phone', 'tablet', 'laptop'],
@@ -17,18 +17,18 @@ module.exports = {
         unique: true,
       },
       createdAt: {
+        field: 'created_at',
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
         defaultValue: new Date(),
       },
       updatedAt: {
-        type: Sequelize.DATE,
         field: 'updated_at',
+        type: Sequelize.DATE,
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_types');
+    await queryInterface.dropTable('productTypes');
   },
 };

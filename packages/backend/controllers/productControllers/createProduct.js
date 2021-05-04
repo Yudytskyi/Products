@@ -19,7 +19,7 @@ const createProduct = async (req, res, next) => {
     const transaction = await sequelize.transaction();
 
     const productTypeInstance = await ProductType.findOne({
-      where: { type_name: typeName },
+      where: { typeName },
       transaction,
     });
 
@@ -38,19 +38,19 @@ const createProduct = async (req, res, next) => {
       : (await transaction.rollback(), next(createError(400)));
 
     const {
-      dataValues: { productId: product_id, productTypeId: product_type_id },
+      dataValues: { productId, productTypeId },
     } = attributeInstance;
 
     const { dataValues: newProduct } = await Attribute.findOne({
-      where: { product_id, product_type_id },
+      where: { productId, productTypeId },
       attributes: includesFields,
       include: [Product, ProductType],
     });
 
     const preparedProduct = {
-      productId: product_id,
+      productId,
       name: newProduct.Product.get('name'),
-      type_name: newProduct.ProductType.get('type_name'),
+      typeName: newProduct.ProductType.get('typeName'),
       ..._.pick(newProduct, includesFields),
     };
 

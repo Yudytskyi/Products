@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "data": {
       "productType": {
-          "type_name": "phone"
+          "typeName": "phone"
           }
     }
 } 

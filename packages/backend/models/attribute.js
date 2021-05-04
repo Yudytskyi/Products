@@ -59,11 +59,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       dualSim: {
         type: DataTypes.BOOLEAN,
-        field: 'dual_sim',
+        field: 'dualSim',
       },
       graphicsCard: {
         type: DataTypes.STRING(256),
-        field: 'graphics_card',
+        field: 'graphicsCard',
       },
     },
     {
