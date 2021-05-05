@@ -1,6 +1,6 @@
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
 const createError = require('http-errors');
-const { prepareProduct, getValueByKeys } = require('../../services');
+const { prepareProduct } = require('../../services');
 
 const createProduct = async (req, res, next) => {
   const {
@@ -31,22 +31,14 @@ const createProduct = async (req, res, next) => {
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
-    const { productId, productTypeId } = getValueByKeys(attributeInstance, [
-      'productId',
-      'productTypeId',
-    ]);
+    const { productId, productTypeId } = attributeInstance.dataValues;
 
-    const newProduct = await Attribute.findOne({
+    const createdProduct = await Attribute.findOne({
       where: { productId, productTypeId },
       include: [Product, ProductType],
     });
 
-    const preparedProduct = prepareProduct(
-      productId,
-      newProduct.Product.get('name'),
-      newProduct.ProductType.get('typeName'),
-      newProduct
-    );
+    const preparedProduct = prepareProduct(createdProduct);
 
     res.status(201).send({ data: preparedProduct });
   } catch (err) {

@@ -1,15 +1,11 @@
-const _ = require('lodash');
+const getValueByKeys = require('./getValueByKeys');
 const {
   db: {
     fields: { includesFields },
   },
 } = require('../config/db.json');
 
-const prepareProduct = (productId, name, typeName, attributes) => ({
-  productId,
-  name,
-  typeName,
-  ..._.pick(attributes, includesFields),
-});
+const prepareProduct = object =>
+  getValueByKeys(object, ['productId', 'name', 'typeName', ...includesFields]);
 
 module.exports = prepareProduct;

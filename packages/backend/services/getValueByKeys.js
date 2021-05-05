@@ -1,32 +1,40 @@
 const _ = require('lodash');
 
-var res = {};
-
 function getValueByKeys(obj, requiredKeys) {
-  keys = _.isArray(requiredKeys) ? requiredKeys : [requiredKeys];
+  const results = {};
+  var res = undefined;
 
-  keys.forEach(requiredKey => {
+  function getValueByKey(obj, requiredKey) {
     if (_.isArray(obj)) {
-      obj.forEach(element => {
-        getValueByKeys(element, requiredKey);
+      obj.forEach(value => {
+        getValueByKey(value, requiredKey);
       });
       return res;
     }
 
     if (_.isObject(obj)) {
       for (const key in obj) {
-        if (res[requiredKey]) break;
+        if (res !== undefined) break;
 
         if (Object.hasOwnProperty.call(obj, key)) {
-          const element = obj[key];
-          key === requiredKey
-            ? (res[requiredKey] = element)
-            : getValueByKeys(element, requiredKey);
+          const value = obj[key];
+          if (key === requiredKey) {
+            res = value;
+            break;
+          }
+          getValueByKey(value, requiredKey);
         }
       }
     }
+    return res;
+  }
+
+  keys = _.isArray(requiredKeys) ? requiredKeys : [requiredKeys];
+
+  keys.forEach(requiredKey => {
+    results[requiredKey] = getValueByKey(obj, requiredKey);
   });
-  return res;
+  return results;
 }
 
 module.exports = getValueByKeys;
