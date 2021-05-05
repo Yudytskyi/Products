@@ -33,6 +33,7 @@ function getValueByKeys(obj, requiredKeys) {
 
   keys.forEach(requiredKey => {
     results[requiredKey] = getValueByKey(obj, requiredKey);
+    res = undefined;
   });
   return results;
 }

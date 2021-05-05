@@ -4,6 +4,7 @@ const deleteByIdProducts = async (req, res, next) => {
   const {
     params: { productId },
   } = req;
+
   try {
     const productInstance = await Product.findByPk(productId);
 

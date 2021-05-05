@@ -24,7 +24,7 @@
     },
     "fields": {
       "includesFields": ["weight", "color", "price", "dualSim", "graphicsCard"],
-      "excludesFields": ["updatedAt", "createdAt", "ProductTypeId", "ProductId", "productTypeId"]
+      "prepareProductFields": ["productId", "name", "typeName", "weight", "color", "price", "dualSim", "graphicsCard"]
     }
   }
 }

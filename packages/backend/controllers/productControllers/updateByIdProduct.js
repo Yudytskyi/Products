@@ -1,17 +1,8 @@
-const getByIdProduct = require('./getByIdProduct');
-
-const {
-  sequelize,
-  Product,
-  ProductType,
-  ProductInType,
-} = require('../../models');
-const createError = require('http-errors');
-const _ = require('lodash');
-
+const { sequelize, Product, ProductType, Attribute } = require('../../models');
+const { prepareProducts, getValueByKeys } = require('../../services');
 const {
   db: {
-    fields: { includesFields, excludesFields },
+    fields: { includesFields },
   },
 } = require('../../config/db.json');
 
@@ -22,38 +13,37 @@ const updateByIdProducts = async (req, res, next) => {
     },
     params: { productId },
   } = req;
+
   try {
-    const productInstance = await Product.findByPk(productId);
-    if (!productInstance) {
-      res.status(404).send(`Product by id: ${productId} does not exist`);
-    }
-    const productTypeInstance = await ProductType.findOne({
-      where: { typeName: typeName },
-    });
-    const productTypeId = productTypeInstance.get('id');
-    const productInTypeInstance = await ProductInType.findOne({
-      where: { product_id: productTypeId },
+    const productInstance = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
     });
 
-    if (name) {
-      productInstance.name = name;
-    }
-    if (typeName) {
-      productInTypeInstance.productTypeId = productTypeId;
-    }
+    if (productInstance) {
+      const { productTypeId } = getValueByKeys(
+        productInstance,
+        'productTypeId'
+      );
 
-    if (attributes) {
-      includesFields.forEach(field => {
-        if (attributes[field]) {
-          productInTypeInstance[field] = attributes[field];
-        }
+      productInstance.dataValues.name = name;
+
+      attributesInstance = await Attribute.findOne({
+        where: {
+          productId,
+          productTypeId,
+        },
       });
+      attributesInstance.dataValues = attributes;
 
       await productInstance.save();
-      await productInTypeInstance.save();
+      await attributesInstance.save();
 
-      const req = { params: { productId } };
-      await getByIdProduct(req, res, next);
+      const updatedProduct = await Product.findByPk(productId, {
+        include: [ProductType, Attribute],
+      });
+      res.status(200).send({ data: prepareProducts(updatedProduct) });
+    } else {
+      res.status(404).send(`Product by id: ${productId} does not exist`);
     }
   } catch (err) {
     return next(err);

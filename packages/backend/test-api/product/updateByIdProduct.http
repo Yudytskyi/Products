@@ -1,10 +1,10 @@
-PATCH http://localhost:5000/api/0.0.1/product/6
+PATCH http://localhost:5000/api/0.0.1/product/201
 Content-Type: application/json
 
 {
   "data": {
-    "name": "skuUpdated6",
-    "typeName": "tablet",
+    "name": "skuUpdated",
+    "typeName": "phone",
     "attributes": {
       "weight": 1006,
       "color": "colorUpdated6",
