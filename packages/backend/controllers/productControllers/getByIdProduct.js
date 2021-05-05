@@ -1,12 +1,7 @@
 const _ = require('lodash');
 
 const { Product, ProductType, Attribute } = require('../../models');
-
-const {
-  db: {
-    fields: { includesFields },
-  },
-} = require('../../config/db.json');
+const { prepareProduct } = require('../../services');
 
 const getById = async (req, res, next) => {
   const {
@@ -21,13 +16,14 @@ const getById = async (req, res, next) => {
       const typeName = product.ProductTypes[0].dataValues.typeName;
       const attributes = product.Attributes[0].dataValues;
 
-      const prepareProducts = {
+      const preparedProduct = prepareProduct(
         productId,
-        name: product.name,
+        product.name,
         typeName,
-        ..._.pick(attributes, includesFields),
-      };
-      res.status(200).send({ data: prepareProducts });
+        attributes
+      );
+
+      res.status(200).send({ data: preparedProduct });
     } else {
       res.status(404).send(`Product by id: ${productId} does not exist`);
     }
