@@ -16,8 +16,8 @@ const getAllProducts = async (req, res, next) => {
       order: [['id', 'asc']],
       include: [ProductType, Attribute],
     });
-    const countProductsOnPage = limit;
-    const numberFirstProductOnPage = offset;
+    const countProductsOnPage = Number(limit);
+    const numberFirstProductOnPage = Number(offset);
     const currentPage =
       Math.floor(numberFirstProductOnPage / countProductsOnPage) + 1;
 

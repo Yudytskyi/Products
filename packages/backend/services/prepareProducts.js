@@ -6,25 +6,25 @@ const {
   },
 } = require('../config/db.json');
 
-function prepareProduct(objects) {
-  const prepareProductsArray = [];
-  arrayOfObjects = _.isArray(objects) ? objects : [objects];
+function prepareProducts(objects) {
+  const preparedProductsArray = [];
+  const arrayOfObjects = _.isArray(objects) ? objects : [objects];
 
   arrayOfObjects.forEach(obj => {
-    const { productId } = getValueByKeys(obj, 'productId');
+    const { id } = getValueByKeys(obj, 'id');
     const { name } = getValueByKeys(obj, 'name');
     const { typeName } = getValueByKeys(obj, 'typeName');
     const attributes = getValueByKeys(obj, includesFields);
 
     const prepareProduct = {
-      productId,
+      id,
       name,
       typeName,
       attributes,
     };
-    prepareProductsArray.push(prepareProduct);
+    preparedProductsArray.push(prepareProduct);
   });
-  return prepareProductsArray;
+  return preparedProductsArray;
 }
 
-module.exports = prepareProduct;
+module.exports = prepareProducts;

@@ -3,12 +3,12 @@ Content-Type: application/json
 
 {
   "data": {
-    "name": "sku320",
+    "name": "sku325",
     "typeName": "phone",
     "attributes": {
-      "weight": 1320,
-      "color": "color320",
-      "price": 320.20,
+      "weight": 1325,
+      "color": "color325",
+      "price": 325.25,
       "dualSim": false
     }
   }

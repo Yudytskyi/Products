@@ -1,10 +1,14 @@
 const { ProductType } = require('../../models');
-const createError = require('http-errors');
 
 const deleteAllProductTypes = async (req, res, next) => {
-  const {} = req;
   try {
-    res.status(200).send('All productTypes is removed...');
+    const numberOfDeleted = await ProductType.destroy({ where: {} });
+
+    numberOfDeleted
+      ? res
+          .status(200)
+          .send(`${numberOfDeleted} productType(s) have been deleted`)
+      : res.status(404).send('ProductTypes table is empty');
   } catch (err) {
     return next(err);
   }
