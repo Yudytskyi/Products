@@ -20,7 +20,7 @@ function prepareProducts(objects) {
       id,
       name,
       typeName,
-      attributes,
+      attributes: _.isEmpty(attributes) ? undefined : attributes,
     };
     preparedProductsArray.push(prepareProduct);
   });
