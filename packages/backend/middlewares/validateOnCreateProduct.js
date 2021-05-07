@@ -1,3 +1,4 @@
+const _ = require('lodash'); //used by the eval function
 const createError = require('http');
 
 const { productCreateSchema } = require('./schemas');

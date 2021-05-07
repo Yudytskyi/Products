@@ -1,5 +1,10 @@
 const { Product, ProductType, Attribute } = require('../../models');
-const { prepareProducts } = require('../../services');
+const { prepareObjects } = require('../../services');
+const {
+  db: {
+    fields: { prepareProductFields },
+  },
+} = require('../../config/db.json');
 
 const getAllProducts = async (req, res, next) => {
   const {
@@ -29,7 +34,7 @@ const getAllProducts = async (req, res, next) => {
           currentPage,
           numberFirstProductOnPage,
         },
-        data: prepareProducts(productsPerPage),
+        data: prepareObjects(productsPerPage, prepareProductFields),
       });
     } else {
       res.status(400).send('Table Products is empty');

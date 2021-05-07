@@ -24,7 +24,26 @@
     },
     "fields": {
       "includesFields": ["weight", "color", "price", "dualSim", "graphicsCard"],
-      "prepareProductFields": ["productId", "name", "typeName", "weight", "color", "price", "dualSim", "graphicsCard"]
-    }
+      "prepareProductFields": ["id", "name", "typeName", "weight", "color", "price", "dualSim", "graphicsCard"]
+    },
+    "prototypeOfAttributes": {
+        "weight":"weight", 
+        "color":"color", 
+        "price":"price", 
+        "dualSim":"dualSim", 
+        "graphicsCard": "graphicsCard"
+      },
+    "prototypeOfPreparedProduct": {
+        "productId":"productId", 
+        "name":"name", 
+        "typeName":"typeName", 
+        "attributes":{
+          "weight":"weight", 
+          "color":"color", 
+          "price":"price", 
+          "dualSim":"dualSim", 
+          "graphicsCard": "graphicsCard"
+        }
+      }
   }
 }

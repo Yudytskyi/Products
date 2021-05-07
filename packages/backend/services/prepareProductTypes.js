@@ -2,17 +2,24 @@ const _ = require('lodash');
 const getValueByKeys = require('./getValueByKeys');
 
 function prepareProductTypes(objects) {
-  const preparedProductTypesArray = [];
-  const arrayOfObjects = _.isArray(objects) ? objects : [objects];
+  const prepareProductsArray = [];
+  arrayOfObjects = _.isArray(objects) ? objects : [objects];
 
   arrayOfObjects.forEach(obj => {
-    const { productTypeId } = getValueByKeys(obj, 'productTypeId');
+    const { productId } = getValueByKeys(obj, 'productId');
+    const { name } = getValueByKeys(obj, 'name');
     const { typeName } = getValueByKeys(obj, 'typeName');
+    const attributes = getValueByKeys(obj, includesFields);
 
-    const prepareProduct = { productTypeId, typeName };
-    preparedProductTypesArray.push(prepareProduct);
+    const prepareProduct = {
+      productId,
+      name,
+      typeName,
+      attributes,
+    };
+    prepareProductsArray.push(prepareProduct);
   });
-  return preparedProductTypesArray;
+  return prepareProductsArray;
 }
 
 module.exports = prepareProductTypes;

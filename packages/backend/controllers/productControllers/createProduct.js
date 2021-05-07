@@ -12,7 +12,7 @@ const createProduct = async (req, res, next) => {
   try {
     const transaction = await sequelize.transaction();
 
-    const productTypeInstance = await ProductType.findOne({
+    const [productTypeInstance] = await ProductType.findOrCreate({
       where: { typeName },
       transaction,
     });
