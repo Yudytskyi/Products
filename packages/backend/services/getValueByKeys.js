@@ -14,7 +14,7 @@ function getValueByKey(object, requiredKey) {
       .filter(key => key.charAt(0) !== '_')
       .some(key => {
         buffer[requiredKey] = getValueByKey(object[key], requiredKey);
-        return buffer[requiredKey] ? true : false;
+        return buffer[requiredKey] !== undefined ? true : false;
       });
   }
 

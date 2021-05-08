@@ -1,7 +1,8 @@
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects, getValueByKeys } = require('../../services');
-const { db } = require('../../config/db.json');
-const prepareProductFields = getValueByKeys(db, 'prepareProductFields');
+const { prepareObjects } = require('../../services');
+const {
+  db: { modelPreparedProduct },
+} = require('../../config/db.json');
 
 const updateByIdProducts = async (req, res, next) => {
   const {
@@ -40,7 +41,7 @@ const updateByIdProducts = async (req, res, next) => {
       });
       res
         .status(200)
-        .send({ data: prepareObjects(updatedProduct, prepareProductFields) });
+        .send({ data: prepareObjects(updatedProduct, modelPreparedProduct) });
     } else {
       res.status(404).send(`Product by id: ${productId} does not exist`);
     }
