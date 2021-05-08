@@ -1,10 +1,7 @@
 const { Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects } = require('../../services');
-const {
-  db: {
-    fields: { prepareProductFields },
-  },
-} = require('../../config/db.json');
+const { prepareObjects, getValueByKeys } = require('../../services');
+const { db } = require('../../config/db.json');
+const prepareProductFields = getValueByKeys(db, 'prepareProductFields');
 
 const getAllProducts = async (req, res, next) => {
   const {

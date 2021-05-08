@@ -1,10 +1,7 @@
 const _ = require('lodash');
 const getValueByKeys = require('./getValueByKeys');
-const {
-  db: {
-    fields: { prepareProductFields },
-  },
-} = require('../config/db.json');
+const { configDB } = require('../config/db.json');
+const prepareProductFields = getValueByKeys(configDB, 'prepareProductFields');
 
 function prepareProducts(objects) {
   const preparedProducts = [];
@@ -14,7 +11,7 @@ function prepareProducts(objects) {
     const preparedProduct = Object.fromEntries(
       getValueByKeys(product, prepareProductFields)
     );
-    product ? preparedProducts.push(product) : false;
+    product ? preparedProducts.push(preparedProduct) : false;
   });
   return preparedProducts;
 }

@@ -1,6 +1,8 @@
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
 const createError = require('http-errors');
-const { prepareProducts } = require('../../services');
+const { prepareObjects, getValueByKeys } = require('../../services');
+const { db } = require('../../config/db.json');
+const prepareProductFields = getValueByKeys(db, 'prepareProductFields');
 
 const createProduct = async (req, res, next) => {
   const {
@@ -38,7 +40,10 @@ const createProduct = async (req, res, next) => {
       include: [Product, ProductType],
     });
 
-    const preparedProduct = prepareProducts(createdProduct);
+    const preparedProduct = prepareObjects(
+      createdProduct,
+      prepareProductFields
+    );
 
     res.status(201).send({ data: preparedProduct });
   } catch (err) {

@@ -7,33 +7,38 @@ function getValueByKey(object, requiredKey) {
   }
 
   if (_.isObject(object)) {
-    Object.getOwnPropertyDescriptor(object, requiredKey)
-      ? (buffer[requiredKey] = object[requiredKey])
-      : Object.keys(object)
-          .filter(key => key.charAt(0) !== '_')
-          .forEach(key => {
-            if (!buffer[requiredKey]) {
-              return key === requiredKey
-                ? (buffer[requiredKey] = object[key])
-                : (buffer[requiredKey] = getValueByKey(
-                    object[key],
-                    requiredKey
-                  ));
-            }
-          });
+    if (Object.getOwnPropertyDescriptor(object, requiredKey)) {
+      return (buffer[requiredKey] = object[requiredKey]);
+    }
+    Object.keys(object)
+      .filter(key => key.charAt(0) !== '_')
+      .some(key => {
+        buffer[requiredKey] = getValueByKey(object[key], requiredKey);
+        return buffer[requiredKey] ? true : false;
+      });
   }
+
   return buffer[requiredKey];
 }
 
-function getValueByKeys(object, requiredKeys) {
+function getValueByKeys(object, requiredKeys, returnType) {
   const buffer = [];
   keys = _.isArray(requiredKeys) ? requiredKeys : [requiredKeys];
 
   keys.forEach(key => {
     const value = getValueByKey(object, key);
-    value ? buffer.push([key, value]) : undefined;
+    if (value === undefined) {
+      return;
+    }
+    buffer.push(
+      _.isArray(returnType)
+        ? [key, value]
+        : _.isObject(returnType)
+        ? Object.fromEntries([[key, value]])
+        : value
+    );
   });
-  return buffer;
+  return buffer.length === 1 ? buffer[0] : buffer;
 }
 
 module.exports = getValueByKeys;
