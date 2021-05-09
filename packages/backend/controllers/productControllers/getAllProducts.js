@@ -4,39 +4,48 @@ const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
 
+function getMetaData(count, limit, offset = 0) {
+  const meta = {};
+  const countAllProducts = Number(count);
+  const countProductsOnPage = Number(limit);
+  const numberFirstProductOnPage = Number(offset) + 1;
+
+  meta.countAllProducts = countAllProducts;
+
+  if (limit) {
+    const currentPage = Math.ceil(
+      numberFirstProductOnPage / countProductsOnPage
+    );
+    const totalPages = Math.ceil(countAllProducts / countProductsOnPage);
+    meta.countProductsOnPage =
+      countAllProducts - numberFirstProductOnPage + 1 > countProductsOnPage
+        ? countProductsOnPage
+        : countAllProducts - numberFirstProductOnPage + 1;
+    meta.page = String(`${currentPage} of ${totalPages}`);
+    meta.numberFirstProductOnPage = numberFirstProductOnPage;
+  }
+  return meta;
+}
+
 const getAllProducts = async (req, res, next) => {
   const {
     query: { limit, offset },
   } = req;
 
   try {
-    const {
-      count: countAllProducts,
-      rows: productsPerPage,
-    } = await Product.findAndCountAll({
+    const { count, rows } = await Product.findAndCountAll({
       limit,
       offset,
       order: [['id', 'asc']],
       include: [ProductType, Attribute],
     });
-    const countProductsOnPage = Number(limit);
-    const numberFirstProductOnPage = Number(offset);
-    const currentPage =
-      Math.floor(numberFirstProductOnPage / countProductsOnPage) + 1;
 
-    if (productsPerPage.length) {
-      res.status(200).send({
-        meta: {
-          countAllProducts,
-          countProductsOnPage,
-          currentPage,
-          numberFirstProductOnPage,
-        },
-        data: prepareObjects(productsPerPage, modelPreparedProduct),
-      });
-    } else {
-      res.status(400).send('Table Products is empty');
-    }
+    count
+      ? res.status(200).send({
+          meta: getMetaData(count, limit, offset),
+          data: prepareObjects(rows, modelPreparedProduct),
+        })
+      : res.status(400).send('Table Products is empty');
   } catch (err) {
     return next(err);
   }
