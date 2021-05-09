@@ -17,18 +17,20 @@ const updateByIdProducts = async (req, res, next) => {
       res.status(404).send(`Product by id: ${productId} does not exist`);
     }
 
-    const transaction = sequelize.transaction();
+    const transaction = await sequelize.transaction();
 
     const [updatedProductCount] = await Product.update(
       { name: body.data.name },
       {
         where: { id: productId },
         returning: true,
+        transaction,
       }
     );
 
     const productTypeInstance = await ProductType.findOne({
       where: { typeName: body.data.typeName },
+      transaction,
     });
     const productTypeId = getValueByKeys(productTypeInstance, 'id');
 
@@ -37,23 +39,21 @@ const updateByIdProducts = async (req, res, next) => {
       {
         where: { productId, productTypeId },
         returning: true,
+        transaction,
       }
     );
 
-    if (updatedProductCount !== 1 || updatedAttributesCount !== 1) {
-      res.status(404).send(`Product by id: ${productId} was not updated`);
-    } else {
-      // await updatedProductCount.save();
-      // await attributesInstance.save();
+    updatedProductCount === 1 && updatedAttributesCount === 1
+      ? await transaction.commit()
+      : (await transaction.rollback(), next(createError(400)));
 
-      const updatedProduct = await Product.findByPk(productId, {
-        include: [ProductType, Attribute],
-      });
+    const updatedProduct = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
+    });
 
-      res.status(200).send({
-        data: prepareObjects(updatedProduct, modelPreparedProduct),
-      });
-    }
+    res.status(200).send({
+      data: prepareObjects(updatedProduct, modelPreparedProduct),
+    });
   } catch (err) {
     return next(err);
   }
