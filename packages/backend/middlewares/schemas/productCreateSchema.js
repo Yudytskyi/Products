@@ -7,8 +7,8 @@ productCreateSchema.phone = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
-      typeName: yup.string().trim(),
+      name: yup.string().trim().required(),
+      typeName: yup.string().trim().required(),
       attributes: yup.object().shape({
         weight: yup.number().positive().integer().required(),
         color: yup.string().trim().required(),
@@ -23,8 +23,8 @@ productCreateSchema.tablet = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
-      typeName: yup.string().trim(),
+      name: yup.string().trim().required(),
+      typeName: yup.string().trim().required(),
       attributes: yup.object().shape({
         weight: yup.number().positive().integer().required(),
         color: yup.string().trim().required(),
@@ -38,8 +38,8 @@ productCreateSchema.laptop = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
-      typeName: yup.string().trim(),
+      name: yup.string().trim().required(),
+      typeName: yup.string().trim().required(),
       attributes: yup.object().shape({
         weight: yup.number().positive().integer().required(),
         color: yup.string().trim().required(),

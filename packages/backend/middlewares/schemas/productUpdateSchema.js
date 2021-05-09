@@ -7,44 +7,44 @@ productUpdateSchema.phone = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
+      name: yup.string().trim(),
       typeName: yup.string().trim(),
       attributes: yup.object().shape({
-        weight: yup.number().positive().integer().required(),
-        color: yup.string().trim().required(),
-        price: yup.number().positive().required(),
-        dualSim: yup.boolean().required(),
+        weight: yup.number().positive().integer(),
+        color: yup.string().trim(),
+        price: yup.number().positive(),
+        dualSim: yup.boolean(),
       }),
     }),
   })
   .noUnknown({ unknownKey: true });
 
-productUpdateSchema.tablet = yup
+productCreateSchema.tablet = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
+      name: yup.string().trim(),
       typeName: yup.string().trim(),
       attributes: yup.object().shape({
-        weight: yup.number().positive().integer().required(),
-        color: yup.string().trim().required(),
-        price: yup.number().positive().required(),
+        weight: yup.number().positive().integer(),
+        color: yup.string().trim(),
+        price: yup.number().positive(),
       }),
     }),
   })
   .noUnknown({ unknownKey: true });
 
-productUpdateSchema.laptop = yup
+productCreateSchema.laptop = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string(),
+      name: yup.string().trim(),
       typeName: yup.string().trim(),
       attributes: yup.object().shape({
-        weight: yup.number().positive().integer().required(),
-        color: yup.string().trim().required(),
-        price: yup.number().positive().required(),
-        graphicsCard: yup.string().required(),
+        weight: yup.number().positive().integer(),
+        color: yup.string().trim(),
+        price: yup.number().positive(),
+        graphicsCard: yup.string(),
       }),
     }),
   })
