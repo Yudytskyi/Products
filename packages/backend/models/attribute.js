@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Product',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       productTypeId: {
         field: 'product_type_id',
@@ -25,6 +27,8 @@ module.exports = (sequelize, DataTypes) => {
           model: 'ProductType',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       weight: {
         type: DataTypes.INTEGER,
@@ -71,6 +75,12 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Attribute',
       underscored: true,
       tableName: 'attributes',
+      indexes: [
+        {
+          primaryKey: true,
+          fields: ['product_id', 'product_type_id'],
+        },
+      ],
     }
   );
   return Attribute;
