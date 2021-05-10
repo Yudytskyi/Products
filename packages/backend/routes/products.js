@@ -8,19 +8,16 @@ const {
   deleteAllProducts,
 } = require('../controllers');
 
-const {
-  validateOnCreateProduct,
-  validateOnUpdateProduct,
-} = require('../middlewares');
+const { validateProduct } = require('../middlewares');
 
 const productsRouter = Router();
 
-productsRouter.post('/product', validateOnCreateProduct, createProduct);
+productsRouter.post('/product', validateProduct.onCreate, createProduct);
 
 productsRouter
   .route('/product/:productId')
   .get(getByIdProduct)
-  .patch(validateOnUpdateProduct, updateByIdProduct)
+  .patch(getByIdProduct, validateProduct.onUpdate, updateByIdProduct)
   .delete(deleteByIdProduct);
 
 productsRouter.route('/products').get(getAllProducts).delete(deleteAllProducts);
