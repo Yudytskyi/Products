@@ -1,0 +1,77 @@
+1
+{
+  "data": {
+    "name": "sku123",
+    "typeName": "phone",
+    "attributes": {
+      "weight": 1123,
+      "color": "color312",
+      "price": 123.23,
+      "dualSim": true
+    }
+  }
+}
+2
+{
+  "data": {
+    "name": "sku124",
+    "typeName": "phone",
+    "attributes": {
+      "weight": 1124,
+      "color": "color312",
+      "price": 124.24,
+      "dualSim": false
+    }
+  }
+}
+ 3
+{
+  "data": {
+    "name": "sku125",
+    "typeName": "laptop",
+    "attributes": {
+      "weight": 1125,
+      "color": "color315",
+      "price": 125.25,
+      "graphicsCard": "cool graphicsCard125"
+    }
+  }
+}
+4
+{
+  "data": {
+    "name": "sku126",
+    "typeName": "tablet",
+    "attributes": {
+      "weight": 1126,
+      "color": "color316",
+      "price": 126.26
+    }
+  }
+}
+5
+{
+  "data": {
+    "name": "sku127",
+    "typeName": "laptop",
+    "attributes": {
+      "weight": 1127,
+      "color": "color317",
+      "price": 127.27,
+      "graphicsCard": "cool graphicsCard137"
+    }
+  }
+}
+6
+{
+  "data": {
+    "name": "sku128",
+    "typeName": "laptop",
+    "attributes": {
+      "weight": 1128,
+      "color": "color318",
+      "price": 128.28,
+      "graphicsCard": "cool graphicsCard138"
+    }
+  }
+}

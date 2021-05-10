@@ -21,8 +21,19 @@ function getValueByKey(object, requiredKey) {
   return buffer[requiredKey];
 }
 
-function getValueByKeys(object, requiredKeys, returnType) {
-  const buffer = [];
+function getValueByKeys(object, requiredKeys, responseType) {
+  var buffer, responseTypeString;
+
+  if (_.isArray(responseType)) {
+    responseTypeString = 'array';
+    buffer = [];
+  } else {
+    if (_.isObject(responseType)) {
+      responseTypeString = 'object';
+      buffer = {};
+    }
+  }
+
   keys = _.isArray(requiredKeys) ? requiredKeys : [requiredKeys];
 
   keys.forEach(key => {
@@ -30,15 +41,18 @@ function getValueByKeys(object, requiredKeys, returnType) {
     if (value === undefined) {
       return;
     }
-    buffer.push(
-      _.isArray(returnType)
-        ? [key, value]
-        : _.isObject(returnType)
-        ? Object.fromEntries([[key, value]])
-        : value
-    );
+    switch (responseTypeString) {
+      case 'array':
+        buffer.push([key, value]);
+        break;
+      case 'object':
+        buffer[key] = value;
+        break;
+      default:
+        buffer = value;
+    }
   });
-  return buffer.length === 1 ? buffer[0] : buffer;
+  return buffer?.length === 1 && _.isArray(buffer) ? buffer[0] : buffer;
 }
 
 module.exports = getValueByKeys;

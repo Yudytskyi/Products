@@ -18,7 +18,7 @@ function prepareObjects(objects, protoObject) {
   arrayOfObjects.forEach(object => {
     preparedObjects.push(createObjectFromModel(object, protoObject));
   });
-  return preparedObjects;
+  return preparedObjects?.length === 1 ? preparedObjects[0] : preparedObjects;
 }
 
 module.exports = prepareObjects;
