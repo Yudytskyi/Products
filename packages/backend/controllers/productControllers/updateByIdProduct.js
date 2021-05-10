@@ -1,6 +1,5 @@
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects } = require('../../services');
-const { getValueByKeys } = require('../../services');
+const { prepareObjects, getValueByKeys } = require('../../services');
 const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
@@ -12,10 +11,14 @@ const updateByIdProducts = async (req, res, next) => {
   } = req;
 
   try {
-    const productInstance = await Product.findByPk(productId);
-    if (!productInstance) {
+    const foundProduct = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
+    });
+    if (!foundProduct) {
       res.status(404).send(`Product by id: ${productId} does not exist`);
     }
+
+    const productTypeId = getValueByKeys(foundProduct, 'productTypeId');
 
     const transaction = await sequelize.transaction();
 
@@ -28,11 +31,14 @@ const updateByIdProducts = async (req, res, next) => {
       }
     );
 
-    const productTypeInstance = await ProductType.findOne({
-      where: { typeName: body.data.typeName },
-      transaction,
-    });
-    const productTypeId = getValueByKeys(productTypeInstance, 'id');
+    const [updatedProductTypeCount] = await ProductType.update(
+      { typeName: body.data.typeName },
+      {
+        where: { id: productTypeId },
+        returning: true,
+        transaction,
+      }
+    );
 
     const [updatedAttributesCount] = await Attribute.update(
       body.data.attributes,
@@ -43,7 +49,9 @@ const updateByIdProducts = async (req, res, next) => {
       }
     );
 
-    updatedProductCount === 1 && updatedAttributesCount === 1
+    updatedProductCount === 1 &&
+    updatedProductTypeCount === 1 &&
+    updatedAttributesCount === 1
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
@@ -52,6 +60,7 @@ const updateByIdProducts = async (req, res, next) => {
     });
 
     res.status(200).send({
+      message: `Product with id: ${productId} updated.`,
       data: prepareObjects(updatedProduct, modelPreparedProduct),
     });
   } catch (err) {

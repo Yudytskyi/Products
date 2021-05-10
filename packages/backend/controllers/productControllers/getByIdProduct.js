@@ -4,7 +4,7 @@ const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
 
-const getById = async (req, res, next) => {
+const getByIdProduct = async (req, res, next) => {
   const {
     params: { productId },
   } = req;
@@ -24,4 +24,4 @@ const getById = async (req, res, next) => {
   }
 };
 
-module.exports = getById;
+module.exports = getByIdProduct;

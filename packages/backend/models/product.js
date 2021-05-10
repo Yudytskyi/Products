@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING(256),
         allowNull: false,
+        unique: true,
         validate: {
           notNull: {
             msg: 'Please enter product name',

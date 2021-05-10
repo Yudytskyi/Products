@@ -8,7 +8,8 @@ const {
 
 function testField(value, context, fieldName) {
   const typeName = context.from[1].value.typeName;
-  return (value && typeName === fieldName) || (!value && typeName !== fieldName)
+  return (value !== undefined && typeName === fieldName) ||
+    (value === undefined && typeName !== fieldName)
     ? true
     : false;
 }
@@ -25,13 +26,15 @@ const productCreateSchema = yup
         price: yup.number().positive().required(),
         dualSim: yup.boolean().test({
           name: 'isPhone',
-          message: 'The <dualSim> field id filled in incorrectly',
+          message: 'Field <dualSim> is invalid',
           test: (value, context) => testField(value, context, 'phone'),
+          exclusive: true,
         }),
         graphicsCard: yup.string().test({
           name: 'isGraphicsCard',
-          message: 'The <isGraphicsCard> field id filled in incorrectly',
+          message: 'Field <isGraphicsCard> is invalid',
           test: (value, context) => testField(value, context, 'laptop'),
+          exclusive: true,
         }),
       }),
     }),

@@ -52,6 +52,18 @@ module.exports = {
             },
           },
         },
+        {
+          data: {
+            name: 'sku127',
+            typeName: 'laptop',
+            attributes: {
+              weight: 1127,
+              color: 'color317',
+              price: 127.27,
+              graphicsCard: 'cool graphicsCard137',
+            },
+          },
+        },
       ],
       {}
     );

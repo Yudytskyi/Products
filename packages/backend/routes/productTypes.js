@@ -6,12 +6,12 @@ const {
   getAllProductTypes,
   deleteAllProductTypes,
 } = require('../controllers');
-const { validateOnCreateProduct } = require('../middlewares');
+const { validateProduct } = require('../middlewares');
 const productTypesRouter = Router();
 
 productTypesRouter
   .route('/productType')
-  .post(validateOnCreateProduct, createProductType);
+  .post(validateProduct.onCreate, createProductType);
 
 productTypesRouter
   .route('/productType/:productTypeId')

@@ -4,15 +4,9 @@
     "productTypes":  {
       "id": "INTEGER",
       "typeName": {
-        "phone": {
-          "check": "attributes.graphicsCard"
-        },
-        "tablet": {
-          "check": "!_.isNil(attributes.graphicsCard) || !_.isNil(attributes.dualSim)"
-        },
-        "laptop": {
-          "check":"attributes.dualSim"
-        }
+        "phone": "",
+        "tablet": "",
+        "laptop": ""
       } ,
       "attributes":{
         "weight": "INTEGER",
