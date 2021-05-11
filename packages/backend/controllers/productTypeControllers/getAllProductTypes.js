@@ -1,10 +1,27 @@
 const { ProductType } = require('../../models');
-const createError = require('http-errors');
+const { prepareObjects, getMetaData } = require('../../services');
+const {
+  db: { modelPreparedProductType },
+} = require('../../config/db.json');
 
 const getAllProductTypes = async (req, res, next) => {
-  const {} = req;
+  const {
+    query: { limit, offset },
+  } = req;
+
   try {
-    res.status(200).send('All productTypes...');
+    const { count, rows } = await ProductType.findAndCountAll({
+      limit,
+      offset,
+      order: [['id', 'asc']],
+    });
+
+    count
+      ? res.status(200).send({
+          meta: getMetaData(count, limit, offset),
+          data: prepareObjects(rows, modelPreparedProductType),
+        })
+      : res.status(400).send('Table ProductTypes is empty');
   } catch (err) {
     return next(err);
   }
