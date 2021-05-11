@@ -1,53 +1,38 @@
 'use strict';
 const yup = require('yup');
+const { getValueByKeys, testFieldInSchema } = require('../../services');
+const { db } = require('../../config/db.json');
+const typeName = getValueByKeys(db, 'typeName');
 
-const productUpdateSchema = {
-  phone: yup
-    .object()
-    .shape({
-      data: yup.object().shape({
+const productUpdateSchema = yup
+  .object()
+  .shape({
+    data: yup.object().shape({
+      product: yup.object().shape({
         name: yup.string().trim(),
-        typeName: yup.string().trim(),
-        attributes: yup.object().shape({
-          weight: yup.number().positive().integer(),
-          color: yup.string().trim(),
-          price: yup.number().positive(),
-          dualSim: yup.boolean(),
+      }),
+      productType: yup.object().shape({
+        typeName: yup.mixed().oneOf(Object.keys(typeName)),
+      }),
+      attributes: yup.object().shape({
+        weight: yup.number().positive().integer(),
+        color: yup.string().trim(),
+        price: yup.number().positive(),
+        dualSim: yup.boolean().test({
+          name: 'isPhone',
+          message: 'Field <dualSim> is invalid',
+          test: (value, context) => testFieldInSchema(value, context, 'phone'),
+          exclusive: true,
+        }),
+        graphicsCard: yup.string().test({
+          name: 'isGraphicsCard',
+          message: 'Field <isGraphicsCard> is invalid',
+          test: (value, context) => testFieldInSchema(value, context, 'laptop'),
+          exclusive: true,
         }),
       }),
-    })
-    .noUnknown({ unknownKey: true }),
-
-  tablet: yup
-    .object()
-    .shape({
-      data: yup.object().shape({
-        name: yup.string().trim(),
-        typeName: yup.string().trim(),
-        attributes: yup.object().shape({
-          weight: yup.number().positive().integer(),
-          color: yup.string().trim(),
-          price: yup.number().positive(),
-        }),
-      }),
-    })
-    .noUnknown({ unknownKey: true }),
-
-  laptop: yup
-    .object()
-    .shape({
-      data: yup.object().shape({
-        name: yup.string().trim(),
-        typeName: yup.string().trim(),
-        attributes: yup.object().shape({
-          weight: yup.number().positive().integer(),
-          color: yup.string().trim(),
-          price: yup.number().positive(),
-          graphicsCard: yup.string(),
-        }),
-      }),
-    })
-    .noUnknown({ unknownKey: true }),
-};
+    }),
+  })
+  .noUnknown({ unknownKey: true });
 
 module.exports = productUpdateSchema;

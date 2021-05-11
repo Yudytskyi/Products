@@ -1,13 +1,16 @@
 {
   "db": {
-    "product": {"id": "INTEGER", "name": "STRING(256)"},
-    "productTypes":  {
-      "id": "INTEGER",
-      "typeName": {
-        "phone": "",
-        "tablet": "",
-        "laptop": ""
-      } ,
+    "bodyOfProduct": {
+      "productId": "INTEGER", 
+      "name": "STRING(256)",
+      "productType":  {
+        "productTypeId": "INTEGER",
+        "typeName": {
+          "phone": "phone",
+          "tablet": "tablet",
+          "laptop": "laptop"
+        } 
+      },
       "attributes":{
         "weight": "INTEGER",
         "color": "STRING(64)",
@@ -17,16 +20,21 @@
       }
     },
     "modelPreparedProduct": {
-        "productId":"", 
-        "name":"", 
-        "typeName":"", 
-        "attributes":{
-          "weight":"", 
-          "color":"", 
-          "price":"", 
-          "dualSim":"", 
-          "graphicsCard": ""
-        }
+      "product":{
+        "productId": "required", 
+        "name": "required"
+      },
+      "productType":  {
+        "productTypeId": "required",
+        "typeName": "required"
+      },
+      "attributes":{
+        "weight": "required",
+        "color": "required",
+        "price": "required",
+        "dualSim": "required for phone",
+        "graphicsCard": "required for laptop"
       }
+    }
   }
 }

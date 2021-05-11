@@ -1,5 +1,3 @@
-const _ = require('lodash'); //used by the eval function
-
 const { productCreateSchema, productUpdateSchema } = require('./schemas');
 
 const validateProduct = {

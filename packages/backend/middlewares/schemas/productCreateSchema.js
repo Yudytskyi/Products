@@ -1,25 +1,19 @@
 'use strict';
 const yup = require('yup');
-const {
-  db: {
-    productTypes: { typeName },
-  },
-} = require('../../config/db.json');
-
-function testField(value, context, fieldName) {
-  const typeName = context.from[1].value.typeName;
-  return (value !== undefined && typeName === fieldName) ||
-    (value === undefined && typeName !== fieldName)
-    ? true
-    : false;
-}
+const { getValueByKeys, testFieldInSchema } = require('../../services');
+const { db } = require('../../config/db.json');
+const typeName = getValueByKeys(db, 'typeName');
 
 const productCreateSchema = yup
   .object()
   .shape({
     data: yup.object().shape({
-      name: yup.string().trim().required(),
-      typeName: yup.mixed().oneOf(Object.keys(typeName)).required(),
+      product: yup.object().shape({
+        name: yup.string().trim().required(),
+      }),
+      productType: yup.object().shape({
+        typeName: yup.mixed().oneOf(Object.keys(typeName)).required(),
+      }),
       attributes: yup.object().shape({
         weight: yup.number().positive().integer().required(),
         color: yup.string().trim().required(),
@@ -27,13 +21,13 @@ const productCreateSchema = yup
         dualSim: yup.boolean().test({
           name: 'isPhone',
           message: 'Field <dualSim> is invalid',
-          test: (value, context) => testField(value, context, 'phone'),
+          test: (value, context) => testFieldInSchema(value, context, 'phone'),
           exclusive: true,
         }),
         graphicsCard: yup.string().test({
           name: 'isGraphicsCard',
           message: 'Field <isGraphicsCard> is invalid',
-          test: (value, context) => testField(value, context, 'laptop'),
+          test: (value, context) => testFieldInSchema(value, context, 'laptop'),
           exclusive: true,
         }),
       }),
