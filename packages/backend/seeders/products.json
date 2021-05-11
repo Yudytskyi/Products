@@ -1,13 +1,17 @@
 1
 {
   "data": {
-    "name": "sku123",
-    "typeName": "phone",
+    "product": {
+      "name": "sku123"
+    },
+    "productType": {
+      "typeName": "phone"
+    },
     "attributes": {
       "weight": 1123,
-      "color": "color312",
+      "color": "color123",
       "price": 123.23,
-      "dualSim": true
+      "dualSim": false
     }
   }
 }
@@ -15,8 +19,12 @@
 2
 {
   "data": {
-    "name": "sku124",
-    "typeName": "phone",
+    "product": {
+      "name": "sku124"
+    },
+    "productType": {
+      "typeName": "phone"
+    },
     "attributes": {
       "weight": 1124,
       "color": "color312",
@@ -29,8 +37,12 @@
  3
 {
   "data": {
-    "name": "sku125",
-    "typeName": "laptop",
+    "product": {
+      "name": "sku125"
+    },
+    "productType": {
+      "typeName": "laptop"
+    },
     "attributes": {
       "weight": 1125,
       "color": "color315",
@@ -43,8 +55,12 @@
 4
 {
   "data": {
-    "name": "sku126",
-    "typeName": "tablet",
+    "product": {
+      "name": "sku126"
+    },
+    "productType": {
+      "typeName": "tablet"
+    },
     "attributes": {
       "weight": 1126,
       "color": "color316",
@@ -56,8 +72,12 @@
 5
 {
   "data": {
-    "name": "sku127",
-    "typeName": "laptop",
+    "product": {
+      "name": "sku127"
+    },
+    "productType": {
+      "typeName": "laptop"
+    },
     "attributes": {
       "weight": 1127,
       "color": "color317",
@@ -70,8 +90,12 @@
 6
 {
   "data": {
-    "name": "sku128",
-    "typeName": "laptop",
+    "product": {
+      "name": "sku128"
+    },
+    "productType": {
+      "typeName": "laptop"
+    },
     "attributes": {
       "weight": 1128,
       "color": "color318",

@@ -1,5 +1,11 @@
+const createError = require('http-errors');
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects, getValueByKeys } = require('../../services');
+const {
+  prepareObjects,
+  getValueByKeys,
+  mergeObjects,
+  getAllFieldsOfObject,
+} = require('../../services');
 const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
@@ -9,49 +15,57 @@ const updateByIdProducts = async (req, res, next) => {
     body,
     params: { productId },
   } = req;
+  const updateDataObject = body.data;
+  updateDataObject.product.productId = productId;
 
   try {
-    const foundProduct = await Product.findByPk(productId, {
-      include: [ProductType, Attribute],
-    });
-    if (!foundProduct) {
-      res.status(404).send(`Product by id: ${productId} does not exist`);
-    }
-
-    const productTypeId = getValueByKeys(foundProduct, 'productTypeId');
-
     const transaction = await sequelize.transaction();
 
-    const [updatedProductCount] = await Product.update(
-      { name: body.data.name },
+    if (true) {
+    }
+    const [newProductTypeInstance] = await ProductType.findOrCreate({
+      where: { typeName: updateDataObject.productType.typeName },
+      transaction,
+    });
+
+    const oldProductInstance = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
+      transaction,
+    });
+
+    const oldProduct = prepareObjects(oldProductInstance, modelPreparedProduct);
+
+    const oldProductTypeId = oldProduct.productType.productTypeId;
+
+    const newProduct = mergeObjects(oldProduct, updateDataObject);
+
+    const [updatedProductCount, productInstance] = await Product.update(
+      { name: newProduct.product.name },
       {
-        where: { id: productId },
+        where: { id: newProduct.product.productId },
         returning: true,
         transaction,
       }
     );
 
-    const [updatedProductTypeCount] = await ProductType.update(
-      { typeName: body.data.typeName },
+    const attributes = newProduct.attributes;
+
+    const oldAttributesInstance = await Attribute.findOne({
+      where: { productId, productTypeId: oldProductTypeId },
+      transaction,
+    });
+
+    await oldAttributesInstance.destroy({ transaction });
+
+    const attributeInstance = await newProductTypeInstance.addProducts(
+      productInstance,
       {
-        where: { id: productTypeId },
-        returning: true,
+        through: attributes,
         transaction,
       }
     );
 
-    const [updatedAttributesCount] = await Attribute.update(
-      body.data.attributes,
-      {
-        where: { productId, productTypeId },
-        returning: true,
-        transaction,
-      }
-    );
-
-    updatedProductCount === 1 &&
-    updatedProductTypeCount === 1 &&
-    updatedAttributesCount === 1
+    updatedProductCount === 1 && newProductTypeInstance && attributeInstance
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 

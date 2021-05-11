@@ -8,19 +8,24 @@ const {
 const createProduct = async (req, res, next) => {
   const {
     body: {
-      data: { name, typeName, attributes },
+      data: {
+        product: { name },
+        productType: { typeName },
+        attributes,
+      },
     },
   } = req;
 
   try {
     const transaction = await sequelize.transaction();
 
+    const productInstance = await Product.create({ name }, { transaction });
+    const productId = productInstance.dataValues.id;
+
     const [productTypeInstance] = await ProductType.findOrCreate({
       where: { typeName },
       transaction,
     });
-
-    const productInstance = await Product.create({ name }, { transaction });
 
     const [attributeInstance] = await productTypeInstance.addProducts(
       productInstance,
@@ -30,15 +35,12 @@ const createProduct = async (req, res, next) => {
       }
     );
 
-    attributeInstance
+    productInstance && productTypeInstance && attributeInstance
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
-    const { productId, productTypeId } = attributeInstance.dataValues;
-
-    const createdProduct = await Attribute.findOne({
-      where: { productId, productTypeId },
-      include: [Product, ProductType],
+    const createdProduct = await Product.findByPk(productId, {
+      include: [ProductType, Attribute],
     });
 
     const preparedProduct = prepareObjects(

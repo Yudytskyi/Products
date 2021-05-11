@@ -1,14 +1,19 @@
-PATCH http://localhost:5000/api/0.0.1/product/201
+PATCH http://localhost:5000/api/0.0.1/product/11
 Content-Type: application/json
 
 {
   "data": {
-    "name": "skuUpdated",
-    "typeName": "phone",
+    "product": {
+      "name": "sku124_Up"
+    },
+    "productType": {
+      "typeName": "phone"
+    },
     "attributes": {
-      "weight": 1006,
-      "color": "colorUpdated6",
-      "price": 1006.06
+      "weight": 11240,
+      "color": "color312_Up",
+      "price": 1240.24,
+      "dualSim": false
     }
   }
 }
