@@ -1,31 +1,8 @@
 const { Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects } = require('../../services');
+const { prepareObjects, getMetaData } = require('../../services');
 const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
-
-function getMetaData(count, limit, offset = 0) {
-  const meta = {};
-  const countAllProducts = Number(count);
-  const countProductsOnPage = Number(limit);
-  const numberFirstProductOnPage = Number(offset) + 1;
-
-  meta.countAllProducts = countAllProducts;
-
-  if (limit) {
-    const currentPage = Math.ceil(
-      numberFirstProductOnPage / countProductsOnPage
-    );
-    const totalPages = Math.ceil(countAllProducts / countProductsOnPage);
-    meta.countProductsOnPage =
-      countAllProducts - numberFirstProductOnPage + 1 > countProductsOnPage
-        ? countProductsOnPage
-        : countAllProducts - numberFirstProductOnPage + 1;
-    meta.page = String(`${currentPage} of ${totalPages}`);
-    meta.numberFirstProductOnPage = numberFirstProductOnPage;
-  }
-  return meta;
-}
 
 const getAllProducts = async (req, res, next) => {
   const {
