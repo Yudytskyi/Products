@@ -1,10 +1,10 @@
-PATCH http://localhost:5000/api/0.0.1/product/11
+PATCH http://localhost:5000/api/0.0.1/product/12
 Content-Type: application/json
 
 {
   "data": {
     "product": {
-      "name": "sku124_Up"
+      "name": "sku124_Up2"
     },
     "productType": {
       "typeName": "phone"
@@ -12,7 +12,6 @@ Content-Type: application/json
     "attributes": {
       "weight": 11240,
       "color": "color312_Up",
-      "price": 1240.24,
       "dualSim": false
     }
   }
