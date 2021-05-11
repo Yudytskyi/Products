@@ -35,6 +35,12 @@
         "dualSim": "required for phone",
         "graphicsCard": "required for laptop"
       }
+    },
+    "modelPreparedProductType": {
+      "productType":  {
+        "id": "required",
+        "typeName": "required"
+      }
     }
   }
 }
