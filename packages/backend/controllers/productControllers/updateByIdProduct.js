@@ -1,11 +1,6 @@
 const createError = require('http-errors');
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
-const {
-  prepareObjects,
-  getValueByKeys,
-  mergeObjects,
-  getAllFieldsOfObject,
-} = require('../../services');
+const { prepareObjects, mergeObjects } = require('../../services');
 const {
   db: { modelPreparedProduct },
 } = require('../../config/db.json');
@@ -21,8 +16,6 @@ const updateByIdProducts = async (req, res, next) => {
   try {
     const transaction = await sequelize.transaction();
 
-    if (true) {
-    }
     const [newProductTypeInstance] = await ProductType.findOrCreate({
       where: { typeName: updateDataObject.productType.typeName },
       transaction,
@@ -32,14 +25,12 @@ const updateByIdProducts = async (req, res, next) => {
       include: [ProductType, Attribute],
       transaction,
     });
-
     const oldProduct = prepareObjects(oldProductInstance, modelPreparedProduct);
-
     const oldProductTypeId = oldProduct.productType.productTypeId;
 
     const newProduct = mergeObjects(oldProduct, updateDataObject);
 
-    const [updatedProductCount, productInstance] = await Product.update(
+    const [updatedProductCount, newProductInstance] = await Product.update(
       { name: newProduct.product.name },
       {
         where: { id: newProduct.product.productId },
@@ -47,8 +38,6 @@ const updateByIdProducts = async (req, res, next) => {
         transaction,
       }
     );
-
-    const attributes = newProduct.attributes;
 
     const oldAttributesInstance = await Attribute.findOne({
       where: { productId, productTypeId: oldProductTypeId },
@@ -58,9 +47,9 @@ const updateByIdProducts = async (req, res, next) => {
     await oldAttributesInstance.destroy({ transaction });
 
     const attributeInstance = await newProductTypeInstance.addProducts(
-      productInstance,
+      newProductInstance,
       {
-        through: attributes,
+        through: newProduct.attributes,
         transaction,
       }
     );
