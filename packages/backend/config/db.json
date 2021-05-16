@@ -41,6 +41,20 @@
         "id": "required",
         "typeName": "required"
       }
-    }
-  }
+    },
+    "modelPreparedUser": {
+       "user":{
+        "id": null,
+        "firstName": "first",
+        "lastName": "last",
+        "userName": "username",
+        "password": "password",
+        "email": "email",
+        "role": "title"
+      }
+    },
+    "randomUserFields": ["name", "login", "email"]
+    },
+    "SALT_ROUNDS": 5
+  
 }

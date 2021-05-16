@@ -12,3 +12,11 @@ module.exports.deleteByIdProductType = require('./productTypeControllers/deleteB
 module.exports.getByIdProductType = require('./productTypeControllers/getByIdProductType');
 module.exports.getAllProductTypes = require('./productTypeControllers/getAllProductTypes');
 module.exports.deleteAllProductTypes = require('./productTypeControllers/deleteAllProductTypes');
+
+//      User
+module.exports.createUser = require('./userControllers/createUser');
+module.exports.getAllUsers = require('./userControllers/getAllUsers');
+module.exports.bulkCreateUsers = require('./userControllers/bulkCreateUsers');
+module.exports.deleteAllUsers = require('./userControllers/deleteAllUsers');
+module.exports.getByIdUser = require('./userControllers/getByIdUser');
+module.exports.deleteByIdUser = require('./userControllers/deleteByIdUser');

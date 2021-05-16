@@ -4,16 +4,16 @@ Content-Type: application/json
 {
   "data": {
     "product": {
-      "name": "sku141"
+      "name": "sku128"
     },
     "productType": {
-      "typeName": "phone"
+      "typeName": "laptop"
     },
     "attributes": {
-      "weight": 1140,
-      "color": "color340",
-      "price": 140.40,
-      "dualSim": false
+      "weight": 1128,
+      "color": "color318",
+      "price": 128.28,
+      "graphicsCard": "cool graphicsCard138"
     }
   }
 }
