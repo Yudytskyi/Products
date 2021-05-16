@@ -16,6 +16,7 @@ module.exports.deleteAllProductTypes = require('./productTypeControllers/deleteA
 //      User
 module.exports.createUser = require('./userControllers/createUser');
 module.exports.getAllUsers = require('./userControllers/getAllUsers');
+module.exports.getRandomUsers = require('./userControllers/getRandomUsers');
 module.exports.bulkCreateUsers = require('./userControllers/bulkCreateUsers');
 module.exports.deleteAllUsers = require('./userControllers/deleteAllUsers');
 module.exports.getByIdUser = require('./userControllers/getByIdUser');

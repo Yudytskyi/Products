@@ -5,11 +5,7 @@
       "name": "STRING(256)",
       "productType":  {
         "productTypeId": "INTEGER",
-        "typeName": {
-          "phone": "phone",
-          "tablet": "tablet",
-          "laptop": "laptop"
-        } 
+        "typeName": ["phone", "tablet", "laptop"]
       },
       "attributes":{
         "weight": "INTEGER",
@@ -53,7 +49,8 @@
         "role": "title"
       }
     },
-    "randomUserFields": ["name", "login", "email"]
+    "randomUserFields": ["name", "login", "email"],
+    "usersRoles": ["admin", "user", "guest"]
     },
     "SALT_ROUNDS": 5
   

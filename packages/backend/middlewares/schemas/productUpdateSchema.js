@@ -2,7 +2,7 @@
 const yup = require('yup');
 const { getValueByKeys, testFieldInSchema } = require('../../services');
 const { db } = require('../../config/db.json');
-const typeName = getValueByKeys(db, 'typeName');
+const typeNames = getValueByKeys(db, 'typeName');
 
 const productUpdateSchema = yup
   .object()
@@ -12,7 +12,7 @@ const productUpdateSchema = yup
         name: yup.string().trim(),
       }),
       productType: yup.object().shape({
-        typeName: yup.mixed().oneOf(Object.keys(typeName)),
+        typeName: yup.string().oneOf(typeNames),
       }),
       attributes: yup.object().shape({
         weight: yup.number().positive().integer(),

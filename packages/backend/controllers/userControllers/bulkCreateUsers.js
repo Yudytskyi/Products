@@ -1,14 +1,12 @@
 const createError = require('http-errors');
 const { User } = require('../../models');
-const { getRandomUsers } = require('../../services');
 
 const bulkCreateUsers = async (req, res, next) => {
   const {
-    params: { numberOfUsers },
+    body: { data },
   } = req;
   try {
-    const users = await getRandomUsers({ numberOfUsers });
-    const userTypeInstance = await User.bulkCreate(users);
+    const userTypeInstance = await User.bulkCreate(data);
 
     userTypeInstance.length
       ? res
