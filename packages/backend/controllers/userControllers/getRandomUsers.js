@@ -1,8 +1,13 @@
 const axios = require('axios');
+const { UserModel } = require('../../classes');
 const _ = require('lodash');
-const {
-  db: { randomUserFields, usersRoles },
-} = require('./../../config/db.json');
+const getValueByKeys = require('../../services/getValueByKeys');
+const { db } = require('./../../config/db.json');
+const { randomUserFields, role: usersRoles } = getValueByKeys(
+  db,
+  ['randomUserFields', 'role'],
+  {}
+);
 
 const getRandomUsers = async (req, res, next) => {
   const {
@@ -26,10 +31,16 @@ const getRandomUsers = async (req, res, next) => {
 
       const random = _.random(0, usersRoles.length - 1);
       const role = usersRoles[random];
+      const newUser = new UserModel({
+        firstName,
+        lastName,
+        userName,
+        password,
+        email,
+        role,
+      });
 
-      if (email) {
-        users.push({ firstName, lastName, userName, password, email, role });
-      }
+      users.push(newUser.preparedUser);
     });
 
     users.length

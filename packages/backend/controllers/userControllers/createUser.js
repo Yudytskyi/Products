@@ -1,23 +1,22 @@
 const createError = require('http-errors');
 const { User } = require('../../models');
-const { prepareObjects } = require('../../services');
-const {
-  db: { modelPreparedUser },
-} = require('../../config/db.json');
+const { UserModel } = require('../../classes');
 
 const createUser = async (req, res, next) => {
   const {
     body: {
-      data: { user },
+      data: [{ user }],
     },
   } = req;
 
   try {
-    const uerTypeInstance = await User.create(user);
+    const userTypeInstance = await User.create(user);
 
-    uerTypeInstance
+    const newUser = new UserModel(userTypeInstance);
+
+    userTypeInstance
       ? res.status(201).send({
-          data: prepareObjects(uerTypeInstance, modelPreparedUser),
+          data: newUser.preparedUser,
         })
       : next(createError(400));
   } catch (err) {

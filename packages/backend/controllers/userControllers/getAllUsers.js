@@ -1,8 +1,6 @@
 const { User } = require('../../models');
-const { prepareObjects, getMetaData } = require('../../services');
-const {
-  db: { modelPreparedUser },
-} = require('../../config/db.json');
+const { getMetaData } = require('../../services');
+const { UserModel } = require('../../classes');
 
 const getAllUsers = async (req, res, next) => {
   const {
@@ -16,10 +14,15 @@ const getAllUsers = async (req, res, next) => {
       order: [['id', 'asc']],
     });
 
+    const allUsers = rows.map(row => {
+      const user = new UserModel(row);
+      return user.preparedUser;
+    });
+
     count
       ? res.status(200).send({
           meta: getMetaData(count, limit, offset),
-          data: prepareObjects(rows, modelPreparedUser),
+          data: allUsers,
         })
       : res.status(400).send('Table Users is empty');
   } catch (err) {

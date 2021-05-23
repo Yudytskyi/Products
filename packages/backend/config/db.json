@@ -45,6 +45,15 @@
         "role": ["admin", "user", "guest"]
       }
     },
+      "userFields": [
+      "id", 
+      "firstName",
+      "lastName",
+      "userName",
+      "password",
+      "email",
+      "role"
+    ],
     "randomUserFields": ["name", "login", "email"]
     },
     "SALT_ROUNDS": 5
