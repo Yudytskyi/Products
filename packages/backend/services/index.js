@@ -1,9 +1,7 @@
-module.exports.prepareObjects = require('./prepareObjects');
-
 module.exports.getValueByKeys = require('./getValueByKeys');
 
-module.exports.mergeObjects = require('./mergeObjects');
+module.exports.setValueByKey = require('./setValueByKey');
 
-module.exports.testFieldInSchema = require('./testFieldInSchema');
+module.exports.mergeProducts = require('./mergeProducts');
 
 module.exports.getMetaData = require('./getMetaData');

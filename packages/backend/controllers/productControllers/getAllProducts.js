@@ -1,8 +1,6 @@
 const { Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects, getMetaData } = require('../../services');
-const {
-  db: { modelPreparedProduct },
-} = require('../../config/db.json');
+const { getMetaData } = require('../../services');
+const { ProductModel } = require('../../classes');
 
 const getAllProducts = async (req, res, next) => {
   const {
@@ -17,10 +15,15 @@ const getAllProducts = async (req, res, next) => {
       include: [ProductType, Attribute],
     });
 
+    const allProducts = rows.map(row => {
+      const product = new ProductModel(row);
+      return product.preparedProduct;
+    });
+
     count
       ? res.status(200).send({
           meta: getMetaData(count, limit, offset),
-          data: prepareObjects(rows, modelPreparedProduct),
+          data: allProducts,
         })
       : res.status(400).send('Table Products is empty');
   } catch (err) {

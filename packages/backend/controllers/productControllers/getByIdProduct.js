@@ -1,8 +1,5 @@
 const { Product, ProductType, Attribute } = require('../../models');
-const { prepareObjects } = require('../../services');
-const {
-  db: { modelPreparedProduct },
-} = require('../../config/db.json');
+const { ProductModel } = require('../../classes');
 
 const getByIdProduct = async (req, res, next) => {
   const {
@@ -14,9 +11,11 @@ const getByIdProduct = async (req, res, next) => {
       include: [ProductType, Attribute],
     });
 
+    const product = new ProductModel(foundProduct);
+
     foundProduct
       ? res.status(200).send({
-          data: prepareObjects(foundProduct, modelPreparedProduct),
+          data: product.preparedProduct,
         })
       : res.status(404).send(`Product by id: ${productId} does not exist`);
   } catch (err) {

@@ -1,37 +1,33 @@
 {
   "db": {
-    "bodyOfProduct": {
-      "productId": "INTEGER", 
-      "name": "STRING(256)",
+    "modelPreparedProduct": {
+      "product":{
+        "productId": "INTEGER", 
+        "name": "STRING(256)"
+      },
       "productType":  {
         "productTypeId": "INTEGER",
         "typeName": ["phone", "tablet", "laptop"]
       },
       "attributes":{
-        "weight": "INTEGER",
-        "color": "STRING(64)",
-        "price": "FLOAT",
-        "dualSim": "BOOLEAN",
-        "graphicsCard": "STRING(256)"
+          "weight": "INTEGER",
+          "color": "STRING(64)",
+          "price": "FLOAT",
+          "dualSim": "BOOLEAN",
+          "graphicsCard": "STRING(256)"
       }
     },
-    "modelPreparedProduct": {
-      "product":{
-        "productId": "required", 
-        "name": "required"
-      },
-      "productType":  {
-        "productTypeId": "required",
-        "typeName": "required"
-      },
-      "attributes":{
-        "weight": "required",
-        "color": "required",
-        "price": "required",
-        "dualSim": "required for phone",
-        "graphicsCard": "required for laptop"
-      }
-    },
+    "productFields": [
+      "productId", 
+      "name",
+      "productTypeId",
+      "typeName",
+      "weight",
+      "color",
+      "price",
+      "dualSim",
+      "graphicsCard"
+    ],
     "modelPreparedProductType": {
       "productType":  {
         "id": "required",
@@ -46,11 +42,10 @@
         "userName": "username",
         "password": "password",
         "email": "email",
-        "role": "title"
+        "role": ["admin", "user", "guest"]
       }
     },
-    "randomUserFields": ["name", "login", "email"],
-    "usersRoles": ["admin", "user", "guest"]
+    "randomUserFields": ["name", "login", "email"]
     },
     "SALT_ROUNDS": 5
   
