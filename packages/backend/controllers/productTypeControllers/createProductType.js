@@ -1,9 +1,6 @@
 const createError = require('http-errors');
 const { ProductType } = require('../../models');
-const { prepareObjects } = require('../../services');
-const {
-  db: { modelPreparedProductType },
-} = require('../../config/db.json');
+const { ProductTypeModel } = require('../../classes');
 
 const createProductType = async (req, res, next) => {
   const {
@@ -16,10 +13,11 @@ const createProductType = async (req, res, next) => {
 
   try {
     const productTypeInstance = await ProductType.create({ typeName });
+    const newProductType = new ProductTypeModel(productTypeInstance);
 
     productTypeInstance
       ? res.status(201).send({
-          data: prepareObjects(productTypeInstance, modelPreparedProductType),
+          data: newProductType.preparedProductType,
         })
       : next(createError(400));
   } catch (err) {

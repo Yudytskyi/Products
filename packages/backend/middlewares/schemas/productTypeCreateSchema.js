@@ -2,21 +2,21 @@
 const yup = require('yup');
 const {
   db: {
-    bodyOfProduct: {
+    modelPreparedProductType: {
       productType: { typeName },
     },
   },
 } = require('../../config/db.json');
 
-const productCreateSchema = yup
+const productTypeCreateSchema = yup
   .object()
   .shape({
     data: yup.object().shape({
       productType: yup.object().shape({
-        typeName: yup.mixed().oneOf(Object.keys(typeName)).required(),
+        typeName: yup.mixed().oneOf(typeName).required(),
       }),
     }),
   })
   .noUnknown();
 
-module.exports = productCreateSchema;
+module.exports = productTypeCreateSchema;

@@ -31,9 +31,10 @@
     "modelPreparedProductType": {
       "productType":  {
         "id": "required",
-        "typeName": "required"
+        "typeName": ["phone", "tablet", "laptop"]
       }
     },
+    "productTypeFields": ["id", "typeName"],
     "modelPreparedUser": {
        "user":{
         "id": null,

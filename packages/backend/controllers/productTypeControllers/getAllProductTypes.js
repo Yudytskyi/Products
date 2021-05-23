@@ -1,8 +1,6 @@
 const { ProductType } = require('../../models');
-const { prepareObjects, getMetaData } = require('../../services');
-const {
-  db: { modelPreparedProductType },
-} = require('../../config/db.json');
+const { getMetaData } = require('../../services');
+const { ProductTypeModel } = require('../../classes');
 
 const getAllProductTypes = async (req, res, next) => {
   const {
@@ -16,10 +14,15 @@ const getAllProductTypes = async (req, res, next) => {
       order: [['id', 'asc']],
     });
 
+    const allProductTypes = rows.map(row => {
+      const productType = new ProductTypeModel(row);
+      return productType.preparedProductType;
+    });
+
     count
       ? res.status(200).send({
           meta: getMetaData(count, limit, offset),
-          data: prepareObjects(rows, modelPreparedProductType),
+          data: allProductTypes,
         })
       : res.status(400).send('Table ProductTypes is empty');
   } catch (err) {

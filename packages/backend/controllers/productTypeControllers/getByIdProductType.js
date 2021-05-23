@@ -1,8 +1,5 @@
 const { ProductType } = require('../../models');
-const { prepareObjects } = require('../../services');
-const {
-  db: { modelPreparedProductType },
-} = require('../../config/db.json');
+const { ProductTypeModel } = require('../../classes');
 
 const getByIdProductType = async (req, res, next) => {
   const {
@@ -10,10 +7,11 @@ const getByIdProductType = async (req, res, next) => {
   } = req;
   try {
     const foundProductType = await ProductType.findByPk(productTypeId);
+    const productType = new ProductTypeModel(foundProductType);
 
     foundProductType
       ? res.status(200).send({
-          data: prepareObjects(foundProductType, modelPreparedProductType),
+          data: productType.preparedProductType,
         })
       : res
           .status(404)
