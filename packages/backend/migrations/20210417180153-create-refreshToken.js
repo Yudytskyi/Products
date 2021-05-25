@@ -1,17 +1,33 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('products', {
+    await queryInterface.createTable('refreshTokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING(256),
+      userId: {
+        type: Sequelize.INTEGER,
+        field: 'user_id',
         allowNull: false,
+        references: {
+          model: { tableName: 'users' },
+        },
+      },
+      token: {
+        type: Sequelize.TEXT,
         unique: true,
+        allowNull: false,
+      },
+      userAgent: {
+        type: Sequelize.STRING,
+        field: 'userAgent',
+      },
+      fingerprint: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         field: 'created_at',
@@ -26,6 +42,6 @@ module.exports = {
     });
   },
   down: async queryInterface => {
-    await queryInterface.dropTable('products');
+    await queryInterface.dropTable('refreshTokens');
   },
 };

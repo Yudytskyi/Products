@@ -11,7 +11,6 @@ const createUser = async (req, res, next) => {
 
   try {
     const userTypeInstance = await User.create(user);
-
     const newUser = new UserModel(userTypeInstance);
 
     userTypeInstance

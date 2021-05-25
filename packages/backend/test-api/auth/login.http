@@ -1,0 +1,11 @@
+POST http://localhost:5000/api/0.0.1/login
+Content-Type: application/json
+
+{
+  "data": [{
+   "user":{
+        "password": "firstName1",
+        "email": "firstLast1@test.com"
+      }
+  }]
+}

@@ -1,4 +1,12 @@
 'use strict';
+const {
+  db: {
+    modelPreparedUser: {
+      user: { role: roles },
+    },
+  },
+} = require('../config/db.json');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
@@ -27,13 +35,14 @@ module.exports = {
         field: 'passwordHash',
         type: Sequelize.TEXT,
         allowNull: false,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM(roles),
         allowNull: false,
       },
       createdAt: {
@@ -48,7 +57,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async queryInterface => {
     await queryInterface.dropTable('users');
   },
 };

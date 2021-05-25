@@ -41,7 +41,6 @@
         "firstName": "first",
         "lastName": "last",
         "userName": "username",
-        "password": "password",
         "email": "email",
         "role": ["admin", "user", "guest"]
       }
@@ -56,7 +55,5 @@
       "role"
     ],
     "randomUserFields": ["name", "login", "email"]
-    },
-    "SALT_ROUNDS": 5
-  
+    }
 }

@@ -21,3 +21,8 @@ module.exports.bulkCreateUsers = require('./userControllers/bulkCreateUsers');
 module.exports.deleteAllUsers = require('./userControllers/deleteAllUsers');
 module.exports.getByIdUser = require('./userControllers/getByIdUser');
 module.exports.deleteByIdUser = require('./userControllers/deleteByIdUser');
+
+//      Authentication
+module.exports.login = require('./authentication/login');
+module.exports.signUp = require('./authentication/signUp');
+module.exports.refresh = require('./authentication/refresh');

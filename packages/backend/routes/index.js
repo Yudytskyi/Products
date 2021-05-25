@@ -1,5 +1,6 @@
-module.exports.productsRouter = require('./products');
-
-module.exports.productTypesRouter = require('./productTypes');
-
-module.exports.userRouter = require('./users');
+module.exports.routes = [
+  (productsRouter = require('./products')),
+  (productTypesRouter = require('./productTypes')),
+  (userRouter = require('./users')),
+  (authRouter = require('./auth')),
+];
