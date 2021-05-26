@@ -1,0 +1,7 @@
+[
+  "20210416170150-create-productType.js",
+  "20210416170151-create-product.js",
+  "20210417170151-create-attribute.js",
+  "20210417180152-create-user.js",
+  "20210417180153-create-refreshToken.js"
+]
