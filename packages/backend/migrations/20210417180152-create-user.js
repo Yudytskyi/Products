@@ -35,11 +35,11 @@ module.exports = {
         field: 'passwordHash',
         type: Sequelize.TEXT,
         allowNull: false,
-        unique: true,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       role: {
         type: Sequelize.ENUM(roles),

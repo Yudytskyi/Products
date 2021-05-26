@@ -22,9 +22,14 @@ module.exports = {
         unique: true,
         allowNull: false,
       },
+      expiredIn: {
+        type: Sequelize.DATE,
+        field: 'expired_in',
+        allowNull: false,
+      },
       userAgent: {
         type: Sequelize.STRING,
-        field: 'userAgent',
+        field: 'user_agent',
       },
       fingerprint: {
         type: Sequelize.STRING,
@@ -37,7 +42,9 @@ module.exports = {
       },
       updatedAt: {
         field: 'updated_at',
+        allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: new Date(),
       },
     });
   },
