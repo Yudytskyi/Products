@@ -1,11 +1,30 @@
 POST http://localhost:5000/api/0.0.1/login
 Content-Type: application/json
 
+# {
+#   "data": [{
+#    "user":{
+#         "password": "firstUser1",
+#         "email": "ivanov@gmail.com"
+#       }
+#   }]
+# }
+
+
 {
   "data": [{
    "user":{
-        "password": "firstName1",
-        "email": "firstLast1@test.com"
+        "password": "secondUser2",
+        "email": "petrov@gmail.com"
       }
   }]
 }
+
+# {
+#   "data": [{
+#    "user":{
+#         "password": "thirdUser3",
+#         "email": "sidorov@gmail.com"
+#       }
+#   }]
+# }

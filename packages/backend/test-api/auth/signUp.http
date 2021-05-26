@@ -1,0 +1,16 @@
+POST http://localhost:5000/api/0.0.1/signUp
+Content-Type: application/json
+
+{
+  "data": [{
+   "user":{
+        "firstName": "Test1",
+        "lastName": "Testovich1",
+        "userName": "Testo1",
+        "password": "testUser1",
+        "email": "test1@gmail.com",
+        "role": "admin"
+      }
+  }]
+}
+

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   RefreshToken.init(
     {
-      userId: {
+      user_id: {
         field: 'user_id',
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -30,17 +30,21 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       expiredIn: {
+        field: 'expired_in',
         type: DataTypes.DATE,
         allowNull: false,
       },
-      userAgent: DataTypes.STRING,
+      userAgent: {
+        field: 'user_agent',
+        type: DataTypes.STRING,
+      },
       fingerprint: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: 'RefreshToken',
       underscored: true,
-      tableName: 'refreshToken',
+      tableName: 'refreshTokens',
     }
   );
 

@@ -37,8 +37,9 @@ async function createTokenPair(userInstance) {
 
 exports.createSession = async userInstance => {
   const { accessToken, refreshToken } = await createTokenPair(userInstance);
-  const count = await userInstance.countRefreshTokens();
-  if (count >= LIMIT_USED_DEVICES) {
+  const countUsedDevices = await userInstance.countRefreshTokens();
+
+  if (countUsedDevices >= LIMIT_USED_DEVICES) {
     const [oldestUserRefreshTokenInstance] =
       await userInstance.getRefreshTokens({
         order: [['updatedAt', 'ASC']],

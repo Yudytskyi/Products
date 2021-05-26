@@ -51,6 +51,7 @@
       "lastName",
       "userName",
       "password",
+      "passwordHash",
       "email",
       "role"
     ],

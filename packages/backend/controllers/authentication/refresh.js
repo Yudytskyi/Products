@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const { RefreshToken } = require('../../models');
-const AuthService = require('../../services');
+const { AuthService } = require('../../services');
 
 const refresh = async (req, res, next) => {
   try {
