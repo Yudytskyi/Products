@@ -2,7 +2,7 @@ const { User } = require('../../models');
 
 const deleteAllUsers = async (req, res, next) => {
   try {
-    const numberOfDeleted = await User.destroy({ where: {} });
+    const numberOfDeleted = await User.cache().destroy({ where: {} });
 
     numberOfDeleted
       ? res.status(200).send(`${numberOfDeleted} user(s) have been deleted`)

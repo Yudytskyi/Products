@@ -6,7 +6,7 @@ const getByIdProductType = async (req, res, next) => {
     params: { productTypeId },
   } = req;
   try {
-    const foundProductType = await ProductType.findByPk(productTypeId);
+    const foundProductType = await ProductType.cache().findByPk(productTypeId);
     const productType = new ProductTypeModel(foundProductType);
 
     foundProductType

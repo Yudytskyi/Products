@@ -2,7 +2,7 @@ const { Product } = require('../../models');
 
 const deleteAllProducts = async (req, res, next) => {
   try {
-    const numberOfDeleted = await Product.destroy({ where: {} });
+    const numberOfDeleted = await Product.cache().destroy({ where: {} });
 
     numberOfDeleted
       ? res.status(200).send(`${numberOfDeleted} product(s) have been deleted`)

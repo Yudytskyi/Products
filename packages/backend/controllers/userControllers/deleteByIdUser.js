@@ -6,10 +6,10 @@ const deleteByIdUser = async (req, res, next) => {
   } = req;
 
   try {
-    const userInstance = await User.findByPk(userId);
+    const userInstance = await User.cache().findByPk(userId);
 
     userInstance
-      ? (await userInstance.destroy()) &&
+      ? (await userInstance.cache().destroy()) &&
         res.status(200).send(`User by id:${userId} deleted`)
       : res.status(404).send(`User by id: ${userId} does not exist`);
   } catch (err) {

@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
       },
     } = req;
 
-    const userInstance = await User.findOne({
+    const userInstance = await User.cache().findOne({
       where: { email },
     });
 

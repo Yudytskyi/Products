@@ -36,7 +36,7 @@ const createProduct = async (req, res, next) => {
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
-    const createdProduct = await Product.findByPk(productId, {
+    const createdProduct = await Product.cache().findByPk(productId, {
       include: [ProductType, Attribute],
     });
 

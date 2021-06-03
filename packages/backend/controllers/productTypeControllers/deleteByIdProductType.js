@@ -6,10 +6,12 @@ const deleteByIdProductType = async (req, res, next) => {
   } = req;
 
   try {
-    const productTypeInstance = await ProductType.findByPk(productTypeId);
+    const productTypeInstance = await ProductType.cache().findByPk(
+      productTypeId
+    );
 
     productTypeInstance
-      ? (await productTypeInstance.destroy()) &&
+      ? (await productTypeInstance.cache().destroy()) &&
         res.status(200).send(`ProductType by id:${productTypeId} deleted`)
       : res
           .status(404)

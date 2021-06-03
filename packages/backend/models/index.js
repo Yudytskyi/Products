@@ -6,6 +6,7 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+const { withCache } = require('../services');
 const db = {};
 
 let sequelize;
@@ -31,7 +32,7 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
-    db[model.name] = model;
+    db[model.name] = withCache(model);
   });
 
 Object.keys(db).forEach(modelName => {
@@ -39,15 +40,6 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
-
-// sequelize
-//   .sync({
-//     alter: true,
-//   })
-//   .catch(err => {
-//     console.error(err);
-//     process.exit(1);
-//   });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

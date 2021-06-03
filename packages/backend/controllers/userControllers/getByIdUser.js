@@ -6,7 +6,7 @@ const getByIdUser = async (req, res, next) => {
     params: { userId },
   } = req;
   try {
-    const foundUser = await User.findByPk(userId);
+    const foundUser = await User.cache().findByPk(userId);
     const user = new UserModel(foundUser);
 
     foundUser

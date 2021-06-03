@@ -11,3 +11,5 @@ module.exports.testFieldInSchema = require('./testFieldInSchema');
 module.exports.AuthService = require('./authService');
 
 module.exports.jwtService = require('./jwtService');
+
+module.exports.withCache = require('./withCache');

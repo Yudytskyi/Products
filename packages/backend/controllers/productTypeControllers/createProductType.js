@@ -12,7 +12,7 @@ const createProductType = async (req, res, next) => {
   } = req;
 
   try {
-    const productTypeInstance = await ProductType.create({ typeName });
+    const productTypeInstance = await ProductType.cache().create({ typeName });
     const newProductType = new ProductTypeModel(productTypeInstance);
 
     productTypeInstance

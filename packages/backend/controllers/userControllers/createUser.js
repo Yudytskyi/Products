@@ -10,7 +10,7 @@ const createUser = async (req, res, next) => {
   } = req;
 
   try {
-    const userTypeInstance = await User.create(user);
+    const userTypeInstance = await User.cache().create(user);
     const newUser = new UserModel(userTypeInstance);
 
     userTypeInstance

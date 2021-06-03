@@ -9,7 +9,7 @@ const signUp = async (req, res, next) => {
         data: [{ user }],
       },
     } = req;
-    const userInstance = await User.create(user);
+    const userInstance = await User.cache().create(user);
     if (userInstance) {
       const data = await AuthService.createSession(userInstance);
       res.status(201).send({

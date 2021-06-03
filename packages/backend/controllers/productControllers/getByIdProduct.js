@@ -7,7 +7,7 @@ const getByIdProduct = async (req, res, next) => {
   } = req;
 
   try {
-    const foundProduct = await Product.findByPk(productId, {
+    const foundProduct = await Product.cache().findByPk(productId, {
       include: [ProductType, Attribute],
     });
 

@@ -19,7 +19,7 @@ const updateByIdProducts = async (req, res, next) => {
       transaction,
     });
 
-    const oldProductInstance = await Product.findByPk(productId, {
+    const oldProductInstance = await Product.cache().findByPk(productId, {
       include: [ProductType, Attribute],
       transaction,
     });
@@ -27,21 +27,22 @@ const updateByIdProducts = async (req, res, next) => {
     const mergedProduct = mergeProducts(oldProduct, updateProduct);
 
     const newProduct = new ProductModel(mergedProduct);
-    const [updatedProductCount, newProductInstance] = await Product.update(
-      { name: newProduct.name },
-      {
-        where: { id: newProduct.productId },
-        returning: true,
-        transaction,
-      }
-    );
+    const [updatedProductCount, newProductInstance] =
+      await Product.cache().update(
+        { name: newProduct.name },
+        {
+          where: { id: newProduct.productId },
+          returning: true,
+          transaction,
+        }
+      );
 
-    const oldAttributesInstance = await Attribute.findOne({
+    const oldAttributesInstance = await Attribute.cache().findOne({
       where: { productId, productTypeId: oldProduct.productTypeId },
       transaction,
     });
 
-    await oldAttributesInstance.destroy({ transaction });
+    await oldAttributesInstance.cache().destroy({ transaction });
 
     const attributeInstanceProduct = await newProductTypeInstance.addProducts(
       newProductInstance,
@@ -57,7 +58,7 @@ const updateByIdProducts = async (req, res, next) => {
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
-    const updatedProductInstance = await Product.findByPk(productId, {
+    const updatedProductInstance = await Product.cache().findByPk(productId, {
       include: [ProductType, Attribute],
     });
     const updatedProduct = new ProductModel(updatedProductInstance);
