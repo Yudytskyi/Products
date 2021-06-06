@@ -2,7 +2,7 @@
   "db": {
     "modelPreparedProduct": {
       "product":{
-        "productId": "INTEGER", 
+        "id": "INTEGER", 
         "name": "STRING(256)"
       },
       "productType":  {
@@ -18,7 +18,7 @@
       }
     },
     "productFields": [
-      "productId", 
+      "id", 
       "name",
       "productTypeId",
       "typeName",

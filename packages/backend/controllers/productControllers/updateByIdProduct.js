@@ -1,72 +1,79 @@
 const createError = require('http-errors');
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
 const { ProductModel } = require('../../classes');
-const { mergeProducts } = require('../../services');
+const { mergeProducts, getValueByKeys, cacheClear } = require('../../services');
 
 const updateByIdProducts = async (req, res, next) => {
   const {
-    body,
+    body: { data: updateData },
     params: { productId },
   } = req;
 
-  const updateProduct = new ProductModel(body.data);
-  updateProduct.set('productId', productId);
-
   try {
-    const transaction = await sequelize.transaction();
-    const [newProductTypeInstance] = await ProductType.findOrCreate({
-      where: { typeName: updateProduct.typeName },
-      transaction,
-    });
-
-    const oldProductInstance = await Product.cache().findByPk(productId, {
+    const productInstance = await Product.findByPk(productId, {
       include: [ProductType, Attribute],
-      transaction,
     });
-    const oldProduct = new ProductModel(oldProductInstance);
-    const mergedProduct = mergeProducts(oldProduct, updateProduct);
 
-    const newProduct = new ProductModel(mergedProduct);
-    const [updatedProductCount, newProductInstance] =
-      await Product.cache().update(
-        { name: newProduct.name },
+    if (productInstance) {
+      const transaction = await sequelize.transaction();
+      if (updateData.product.name) {
+        productInstance.set('name', updateData.product.name).save();
+      }
+
+      const oldProductTypeId = getValueByKeys(productInstance, 'productTypeId');
+
+      const product = new ProductModel(productInstance);
+
+      const updateProduct = new ProductModel(updateData);
+      updateProduct.set('productId', productId);
+
+      const mergedProduct = mergeProducts(product, updateProduct);
+
+      const newProduct = new ProductModel(mergedProduct);
+
+      const newProductTypeInstance = await ProductType.findOne({
+        where: { typeName: newProduct.typeName },
+        transaction,
+      });
+
+      const attributes = newProduct.preparedProduct.attributes;
+      if (oldProductTypeId) {
+        await Attribute.destroy({
+          where: {
+            productId,
+            productTypeId: oldProductTypeId,
+          },
+          transaction,
+        });
+      }
+
+      const [attributeInstance] = await newProductTypeInstance.addProducts(
+        productInstance,
         {
-          where: { id: newProduct.productId },
-          returning: true,
+          through: attributes,
           transaction,
         }
       );
 
-    const oldAttributesInstance = await Attribute.cache().findOne({
-      where: { productId, productTypeId: oldProduct.productTypeId },
-      transaction,
-    });
+      productInstance && newProductTypeInstance && attributeInstance
+        ? await transaction.commit()
+        : (await transaction.rollback(), next(createError(400)));
 
-    await oldAttributesInstance.cache().destroy({ transaction });
+      cacheClear(Product, id);
 
-    const attributeInstanceProduct = await newProductTypeInstance.addProducts(
-      newProductInstance,
-      {
-        through: newProduct.preparedProduct.attributes,
-        transaction,
-      }
-    );
+      const updatedProductInstance = await Product.findByPk(productId, {
+        include: [ProductType, Attribute],
+      });
 
-    updatedProductCount === 1 &&
-    newProductTypeInstance &&
-    attributeInstanceProduct
-      ? await transaction.commit()
-      : (await transaction.rollback(), next(createError(400)));
+      const updatedProduct = new ProductModel(updatedProductInstance);
 
-    const updatedProductInstance = await Product.cache().findByPk(productId, {
-      include: [ProductType, Attribute],
-    });
-    const updatedProduct = new ProductModel(updatedProductInstance);
-
-    res.status(200).send({
-      message: `Product with id: ${productId} updated.`,
-      data: updatedProduct.preparedProduct,
-    });
+      res.status(200).send({
+        message: `Product with id: ${productId} updated.`,
+        data: updatedProduct.preparedProduct,
+      });
+    } else {
+      res.status(404).send(`Product by id: ${productId} does not exist`);
+    }
   } catch (err) {
     return next(err);
   }
