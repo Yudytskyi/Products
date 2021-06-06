@@ -8,24 +8,28 @@ const getAllProducts = async (req, res, next) => {
   } = req;
 
   try {
-    const { count, rows } = await Product.findAndCountAll({
+    const allProducts = await Product.cache('getAllProducts').findAll({
       limit,
       offset,
       order: [['id', 'asc']],
       include: [ProductType, Attribute],
     });
 
-    const allProducts = rows.map(row => {
-      const product = new ProductModel(row);
-      return product.preparedProduct;
-    });
+    const countProducts = allProducts.length;
 
-    count
-      ? res.status(200).send({
-          meta: getMetaData(count, limit, offset),
-          data: allProducts,
-        })
-      : res.status(400).send('Table Products is empty');
+    if (countProducts) {
+      const allPreparedProduct = allProducts.map(row => {
+        const product = new ProductModel(row);
+        return product.preparedProduct;
+      });
+
+      res.status(200).send({
+        meta: getMetaData(countProducts, limit, offset),
+        data: allPreparedProduct,
+      });
+    } else {
+      res.status(400).send('Table Products is empty');
+    }
   } catch (err) {
     return next(err);
   }

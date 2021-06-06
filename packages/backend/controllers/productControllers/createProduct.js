@@ -1,6 +1,7 @@
 const { sequelize, Product, ProductType, Attribute } = require('../../models');
 const createError = require('http-errors');
 const { ProductModel } = require('../../classes');
+const { cacheClear } = require('../../services');
 
 const createProduct = async (req, res, next) => {
   const {
@@ -36,9 +37,12 @@ const createProduct = async (req, res, next) => {
       ? await transaction.commit()
       : (await transaction.rollback(), next(createError(400)));
 
-    const createdProduct = await Product.cache().findByPk(productId, {
+    const createdProduct = await Product.cache(`Product:${productId}`).findOne({
+      where: { id: productId },
       include: [ProductType, Attribute],
     });
+
+    cacheClear(Product);
 
     const newProduct = new ProductModel(createdProduct);
 
