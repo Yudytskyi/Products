@@ -1,7 +1,12 @@
 const http = require('http');
 const app = require('./app');
+const { NODE_ENV = 'development' } = process.env;
 
-const port = process.env.port ?? 5000;
+const {
+  [NODE_ENV]: { defaultPORT },
+} = require('./config/config.json');
+
+const port = process.env.port ?? defaultPORT;
 
 http.createServer(app).listen(port, () => {
   console.log(`listen port:${port}`);

@@ -41,6 +41,8 @@
     "sequelize": "^6.6.2",
     "sequelize-transparent-cache": "^2.3.0",
     "sequelize-transparent-cache-ioredis": "^2.3.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
     "util": "^0.12.3",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
