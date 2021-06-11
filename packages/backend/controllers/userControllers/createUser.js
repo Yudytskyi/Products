@@ -15,7 +15,7 @@ const createUser = async (req, res, next) => {
 
     userTypeInstance
       ? res.status(201).send({
-          data: newUser.preparedUser,
+          data: [newUser.preparedUser],
         })
       : next(createError(400));
   } catch (err) {

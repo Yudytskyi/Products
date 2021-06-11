@@ -19,5 +19,5 @@ module.exports.options = {
       },
     ],
   },
-  apis: ['./routes/products.js'],
+  apis: ['./test-api/swagger/*.js'],
 };

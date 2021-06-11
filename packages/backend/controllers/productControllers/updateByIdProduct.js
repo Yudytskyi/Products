@@ -5,7 +5,9 @@ const { mergeProducts, getValueByKeys, cacheClear } = require('../../services');
 
 const updateByIdProducts = async (req, res, next) => {
   const {
-    body: { data: updateData },
+    body: {
+      data: [updateData],
+    },
     params: { productId },
   } = req;
 
@@ -17,7 +19,10 @@ const updateByIdProducts = async (req, res, next) => {
     if (productInstance) {
       const transaction = await sequelize.transaction();
       if (updateData.product.name) {
-        productInstance.set('name', updateData.product.name).save();
+        await Product.update(
+          { name: updateData.product.name },
+          { where: { id: productId }, transaction }
+        );
       }
 
       const oldProductTypeId = getValueByKeys(productInstance, 'productTypeId');
@@ -59,7 +64,7 @@ const updateByIdProducts = async (req, res, next) => {
         ? await transaction.commit()
         : (await transaction.rollback(), next(createError(400)));
 
-      cacheClear(Product, id);
+      cacheClear(Product, productId);
 
       const updatedProductInstance = await Product.findByPk(productId, {
         include: [ProductType, Attribute],

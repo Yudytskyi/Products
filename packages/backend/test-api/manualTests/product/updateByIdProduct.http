@@ -1,8 +1,8 @@
-PATCH http://localhost:5000/api/0.0.1/product/12
+PATCH http://localhost:5000/api/0.0.1/product/24
 Content-Type: application/json
 
 {
-  "data": {
+  "data": [{
     "product": {
       "name": "sku124_Up2"
     },
@@ -14,5 +14,5 @@ Content-Type: application/json
       "color": "color312_Up",
       "dualSim": false
     }
-  }
+  }]
 }

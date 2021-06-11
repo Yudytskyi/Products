@@ -5,9 +5,11 @@ const { ProductTypeModel } = require('../../classes');
 const createProductType = async (req, res, next) => {
   const {
     body: {
-      data: {
-        productType: { typeName },
-      },
+      data: [
+        {
+          productType: { typeName },
+        },
+      ],
     },
   } = req;
 
@@ -17,7 +19,7 @@ const createProductType = async (req, res, next) => {
 
     productTypeInstance
       ? res.status(201).send({
-          data: newProductType.preparedProductType,
+          data: [newProductType.preparedProductType],
         })
       : next(createError(400));
   } catch (err) {

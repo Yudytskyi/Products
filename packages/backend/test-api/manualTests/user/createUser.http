@@ -8,7 +8,7 @@ Content-Type: application/json
         "lastName": "lastName1",
         "userName": "login1",
         "password": "thirdUser3",
-        "email": "firstLast3@test.com",
+        "email": "firstLast5@test.com",
         "role": "admin"
       }
   }]

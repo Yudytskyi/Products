@@ -6,11 +6,13 @@ const { cacheClear } = require('../../services');
 const createProduct = async (req, res, next) => {
   const {
     body: {
-      data: {
-        product: { name },
-        productType: { typeName },
-        attributes,
-      },
+      data: [
+        {
+          product: { name },
+          productType: { typeName },
+          attributes,
+        },
+      ],
     },
   } = req;
 
@@ -46,7 +48,7 @@ const createProduct = async (req, res, next) => {
 
     const newProduct = new ProductModel(createdProduct);
 
-    res.status(201).send({ data: newProduct.preparedProduct });
+    res.status(201).send({ data: [newProduct.preparedProduct] });
   } catch (err) {
     return next(err);
   }

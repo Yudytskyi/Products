@@ -2,20 +2,20 @@ POST http://localhost:5000/api/0.0.1/product
 Content-Type: application/json
 
 {
-  "data": {
+  "data": [{
     "product": {
-      "name": "sku128"
+      "name": "sku111"
     },
     "productType": {
-      "typeName": "laptop"
+      "typeName": "phone"
     },
     "attributes": {
-      "weight": 1128,
-      "color": "color318",
-      "price": 128.28,
-      "graphicsCard": "cool graphicsCard138"
+      "weight": 1111,
+      "color": "red1111",
+      "price": 111.11,
+      "dualSim": true
     }
-  }
+  }]
 }
 
 
