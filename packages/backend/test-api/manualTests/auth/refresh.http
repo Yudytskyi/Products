@@ -2,5 +2,5 @@ POST http://localhost:5000/api/0.0.1/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "829eb453-1331-4f1c-818b-92559866c928"
+  "refreshToken": "6b16119e-668b-47ba-8b87-4c3f5f3743c9"
 }

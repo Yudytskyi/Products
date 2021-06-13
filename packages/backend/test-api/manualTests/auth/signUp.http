@@ -4,12 +4,12 @@ Content-Type: application/json
 {
   "data": [{
    "user":{
-        "firstName": "Test1",
-        "lastName": "Testovich1",
-        "userName": "Testo1",
-        "password": "testUser1",
-        "email": "test1@gmail.com",
-        "role": "admin"
+        "firstName": "Test56",
+        "lastName": "Testovich55",
+        "userName": "Testo55",
+        "password": "testPassword1",
+        "email": "test59@gmail.com",
+        "role": "user"
       }
   }]
 }

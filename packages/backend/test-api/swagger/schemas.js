@@ -3,8 +3,7 @@
  * components:
  *  schemas:
  *    metaData:
- *      required:
- *        - countAllItems
+ *      required: [countAllItems]
  *      properties:
  *        countAllItems:
  *          type: integer
@@ -25,7 +24,6 @@
  *        numberFirstItemOnPage: 31
  *
  *    ProductData:
- *      type: object
  *      required: [product, productType, attributes]
  *      properties:
  *        product:
@@ -39,9 +37,7 @@
  *              type: string
  *              description: The product name
  *        productType:
- *          required:
- *            - id
- *            - typeName
+ *          required: [id, typeName]
  *          properties:
  *            id:
  *              type: integer
@@ -51,10 +47,7 @@
  *              type: string
  *              description: Product type name
  *        attributes:
- *          required:
- *            - weight
- *            - color
- *            - price
+ *          required: [weight, color, price]
  *          properties:
  *            weight:
  *              type: integer
@@ -73,7 +66,6 @@
  *              description: The presence of graphics card on the laptop. Used only if product type is Laptop.
  *
  *    ProductReq:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -85,7 +77,6 @@
  *        data:
  *          - {product: { name: swagger311 }, productType: { typeName: laptop }, attributes: { weight: 3311, color: swagger311, price: 311.11, graphicsCard: swagger graphicsCard11}}
  *    ProductRes:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -98,7 +89,6 @@
  *          - {product: {id: 1, name: swagger311 }, productType: { id: 2, typeName: laptop }, attributes: { weight: 3311, color: swagger311, price: 311.11, graphicsCard: swagger graphicsCard11}}
  *
  *    Products:
- *      type: object
  *      required: [meta, data]
  *      properties:
  *        meta:
@@ -117,7 +107,6 @@
  *          - {product: { name: swagger344 }, productType: { typeName: laptop }, attributes: { weight: 3344, color: swagger344, price: 344.44, graphicsCard: swagger graphicsCard44}}
  *
  *    ProductTypeData:
- *      type: object
  *      required: [productType]
  *      properties:
  *        productType:
@@ -134,7 +123,6 @@
  *              description: Product type name
  *
  *    ProductTypeReq:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -146,7 +134,6 @@
  *        data:
  *          - {productType: { typeName: laptop }}
  *    ProductTypeRes:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -159,7 +146,6 @@
  *          - {productType: { id: 2, typeName: laptop }}
  *
  *    ProductTypes:
- *      type: object
  *      required: [meta, data]
  *      properties:
  *        meta:
@@ -177,7 +163,6 @@
  *          - {productType: {id: 3, typeName: tablet }}
  *
  *    UserData:
- *      type: object
  *      required: [user]
  *      properties:
  *        user:
@@ -209,7 +194,6 @@
  *              description: User role
  *
  *    UserReq:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -219,9 +203,14 @@
  *            $ref: '#/components/schemas/UserData'
  *      example:
  *        data:
- *          - {User: { firstName: firstName1, lastName: lastName1, userName: userName1, password: thirdUser3, email: firstLast3@test.com, role: admin}}
+ *          - user:
+ *              firstName: Ivanov
+ *              lastName: Ivan
+ *              userName: Vanya
+ *              password: testPassword1
+ *              email: ivanov@gmail.com
+ *              role: admin}}
  *    UserRes:
- *      type: object
  *      required: [data]
  *      properties:
  *        data:
@@ -234,7 +223,6 @@
  *          - {User: {id: 1, firstName: firstName1, lastName: lastName1, userName: userName1, email: firstLast3@test.com, role: admin}}
  *
  *    Users:
- *      type: object
  *      required: [meta, data]
  *      properties:
  *        meta:
@@ -245,7 +233,11 @@
  *          items:
  *            $ref: '#/components/schemas/UserData'
  *      example:
- *        meta: {countAllItems: 54, countItemsOnPage: 20, page: '1 of 3', numberFirstItemOnPage: 1}
+ *        meta:
+ *          countAllItems: 54
+ *          countItemsOnPage: 20
+ *          page: '1 of 3'
+ *          numberFirstItemOnPage: 1
  *        data:
  *          - {User: {id: 1, firstName: firstName1, lastName: lastName1, userName: userName1, email: firstLast3@test.com, role: admin}}
  *          - {User: {id: 2, firstName: firstName2, lastName: lastName2, userName: userName2, email: firstLast2@test.com, role: user}}

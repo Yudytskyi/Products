@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const { v4: uuidV4 } = require('uuid');
-const { Sequelize } = require('../models');
+const Sequelize = require('sequelize');
 const JwtService = require('./jwtService');
 const {
   tokenExpiresIn,
@@ -49,7 +49,7 @@ exports.createSession = async userInstance => {
     await userInstance.createRefreshToken(refreshToken);
   }
   return {
-    user: prepareUser(userInstance),
+    data: [{ user: prepareUser(userInstance) }],
     tokenPair: {
       accessToken,
       refreshToken: refreshToken.token,

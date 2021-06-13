@@ -12,12 +12,14 @@ Content-Type: application/json
 
 
 {
-  "data": [{
-   "user":{
-        "password": "secondUser2",
-        "email": "petrov@gmail.com"
+  "data": [
+    {
+      "user":{
+        "password": "testPassword1",
+        "email": "test55@gmail.com"
       }
-  }]
+    }
+  ]
 }
 
 # {

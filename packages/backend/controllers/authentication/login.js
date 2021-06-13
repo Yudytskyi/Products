@@ -14,15 +14,13 @@ const login = async (req, res, next) => {
       },
     } = req;
 
-    const userInstance = await User.cache().findOne({
+    const userInstance = await User.findOne({
       where: { email },
     });
 
     if (userInstance && (await userInstance.comparePassword(password))) {
       const data = await AuthService.createSession(userInstance);
-      res.status(201).send({
-        data,
-      });
+      res.status(201).send(data);
       return;
     }
     next(createHttpError(403, 'Incorrect password or email'));
