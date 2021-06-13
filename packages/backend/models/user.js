@@ -1,14 +1,14 @@
 'use strict';
 const { hashSync, compare } = require('bcrypt');
 const { Model } = require('sequelize');
-const { SALT_ROUNDS } = require('../config/jwt');
+const { SALT_ROUNDS } = require('../configs/jwt');
 const {
   db: {
     modelPreparedUser: {
       user: { role: roles },
     },
   },
-} = require('../config/db.json');
+} = require('../configs/db.json');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {

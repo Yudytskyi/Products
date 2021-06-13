@@ -31,16 +31,17 @@ const getRandomUsers = async (req, res, next) => {
 
       const random = _.random(0, usersRoles.length - 1);
       const role = usersRoles[random];
-      const newUser = new UserModel({
+      const randomUser = new UserModel({
         firstName,
         lastName,
         userName,
-        password,
         email,
         role,
       });
+      const newUser = randomUser.preparedUser;
+      newUser.user.password = password;
 
-      users.push(newUser.preparedUser);
+      users.push(newUser);
     });
 
     users.length
