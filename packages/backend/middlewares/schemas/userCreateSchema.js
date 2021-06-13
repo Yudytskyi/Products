@@ -1,7 +1,7 @@
 'use strict';
 const yup = require('yup');
 const getValueByKeys = require('../../services/getValueByKeys');
-const { db } = require('./../../config/db.json');
+const { db } = require('./../../configs/db.json');
 const role = getValueByKeys(db, 'role');
 
 const userCreateSchema = yup

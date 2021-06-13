@@ -7,7 +7,7 @@ const {
   tokenSecret,
   LIMIT_USED_DEVICES,
   REFRESH_TOKEN_EXP,
-} = require('../config/jwt');
+} = require('../configs/jwt');
 
 function prepareUser(userInstance) {
   const userDataValues = userInstance.get();

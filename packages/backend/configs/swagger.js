@@ -3,7 +3,7 @@ const { version } = require('../package.json');
 const { NODE_ENV = 'development', npm_package_version } = process.env;
 const {
   development: { defaultPORT },
-} = require('../config/config.json');
+} = require('../configs/config.json');
 
 module.exports.options = {
   definition: {

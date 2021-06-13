@@ -1,6 +1,6 @@
 const {
   db: { productFields },
-} = require('../config/db.json');
+} = require('../configs/db.json');
 
 const mergeProducts = (oldProduct, updateProduct) => {
   const newProduct = oldProduct;

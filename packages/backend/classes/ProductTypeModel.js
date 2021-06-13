@@ -3,7 +3,7 @@ const { getValueByKeys } = require('../services/index');
 
 const {
   db: { modelPreparedProductType, productTypeFields },
-} = require('../config/db.json');
+} = require('../configs/db.json');
 
 function createPreparedProductType(data, model = modelPreparedProductType) {
   const preparedUser = {};

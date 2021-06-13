@@ -4,7 +4,7 @@ const { NODE_ENV = 'development' } = process.env;
 
 const {
   [NODE_ENV]: { defaultPORT },
-} = require('./config/config.json');
+} = require('./configs/config.json');
 
 const port = process.env.port ?? defaultPORT;
 

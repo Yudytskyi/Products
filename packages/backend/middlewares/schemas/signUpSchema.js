@@ -5,8 +5,8 @@ const {
       user: { role: roles },
     },
   },
-} = require('../../config/db.json');
-const { passwordRule } = require('../../config/jwt');
+} = require('../../configs/db.json');
+const { passwordRule } = require('../../configs/jwt');
 
 const signUpSchema = yup
   .object()

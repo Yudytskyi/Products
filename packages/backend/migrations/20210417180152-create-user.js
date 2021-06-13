@@ -5,7 +5,7 @@ const {
       user: { role: roles },
     },
   },
-} = require('../config/db.json');
+} = require('..db.json');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

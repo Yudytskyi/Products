@@ -2,7 +2,7 @@ const axios = require('axios');
 const { UserModel } = require('../../classes');
 const _ = require('lodash');
 const getValueByKeys = require('../../services/getValueByKeys');
-const { db } = require('./../../config/db.json');
+const { db } = require('./../../configs/db.json');
 const { randomUserFields, role: usersRoles } = getValueByKeys(
   db,
   ['randomUserFields', 'role'],

@@ -1,7 +1,7 @@
 'use strict';
 const yup = require('yup');
 const { getValueByKeys, testFieldInSchema } = require('../../services');
-const { db } = require('../../config/db.json');
+const { db } = require('../../configs/db.json');
 const typeNames = getValueByKeys(db, 'typeName');
 
 const productCreateSchema = yup

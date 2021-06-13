@@ -6,7 +6,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 
 const { errorHandler } = require('./middlewares');
 const { npm_package_version } = process.env;
-const { options } = require('./config/swagger');
+const { options } = require('./configs/swagger');
 const specs = swaggerJsDoc(options);
 
 const app = express();

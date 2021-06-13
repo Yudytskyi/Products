@@ -3,7 +3,7 @@ const { getValueByKeys, setValueByKey } = require('../services/index');
 
 const {
   db: { modelPreparedProduct, productFields },
-} = require('../config/db.json');
+} = require('../configs/db.json');
 
 function createPreparedProduct(data, model = modelPreparedProduct) {
   const preparedProduct = {};

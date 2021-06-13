@@ -6,7 +6,7 @@ const {
       productType: { typeName },
     },
   },
-} = require('../../config/db.json');
+} = require('../../configs/db.json');
 
 const productTypeCreateSchema = yup
   .object()

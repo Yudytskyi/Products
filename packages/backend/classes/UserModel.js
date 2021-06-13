@@ -3,7 +3,7 @@ const { getValueByKeys } = require('../services/index');
 
 const {
   db: { modelPreparedUser, userFields },
-} = require('../config/db.json');
+} = require('../configs/db.json');
 
 function createPreparedUser(data, model = modelPreparedUser) {
   const preparedUser = {};
