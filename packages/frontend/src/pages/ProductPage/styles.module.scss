@@ -1,0 +1,77 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
+
+//  Product page
+body {
+  background-image: linear-gradient(#78b3e6, #02c7b3);
+}
+.section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .article {
+    max-width: 600px;
+    min-width: 360px;
+    width: 100%;
+
+    .formHeader {
+      .formNames {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        li {
+          width: 33%;
+          list-style-type: none;
+          cursor: pointer;
+          font-size: 22px;
+          font-weight: 800;
+          opacity: 0.5;
+          text-transform: uppercase;
+          transition: opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1),
+            text-shadow 0.5s cubic-bezier(0.6, 0, 0.4, 1);
+
+          &:hover {
+            opacity: 1;
+          }
+          &[active] {
+            text-shadow: 1px 1px 0px #007ba5;
+            opacity: 1;
+          }
+        }
+        .login {
+          text-align: left;
+        }
+        .signup {
+          text-align: center;
+        }
+        .logout {
+          text-align: right;
+        }
+      }
+    }
+  }
+  .arrowWrapper {
+    transition: margin 0.5s cubic-bezier(0.18, 0.89, 0.46, 1.11);
+
+    .arrow {
+      position: relative;
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 18px;
+      overflow: hidden;
+      transform: translateX(-50%);
+      div {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        transform: rotate(45deg) translate(30%, 30%);
+        transform-origin: center center;
+        background-color: white;
+      }
+    }
+  }
+}
