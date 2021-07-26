@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import * as authSagas from './authSagas';
-import AUTH_ACTION_TYPES from '../actions/authActions/authActionTypes';
+import AUTH_ACTION_TYPES from '../redux/actions/authActions/authActionTypes';
 
 function* rootSaga() {
   yield takeLatest(AUTH_ACTION_TYPES.LOGIN_REQUEST, authSagas.loginSaga);
