@@ -1,6 +1,6 @@
 import produce from 'immer';
 import AUTH_ACTION_TYPES from '../actions/authActions/authActionTypes';
-import createReducer from './helpers/createReducer';
+import createReducer from '../services/createReducer';
 
 const initialState = {
   user: null,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const handlers = {
-  [AUTH_ACTION_TYPES.AUTH_REQUEST]: produce(draftState => {
+  [AUTH_ACTION_TYPES.AUTH_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
   }),
   [AUTH_ACTION_TYPES.AUTH_REQUEST_SUCCESS]: produce((draftState, action) => {
@@ -18,6 +18,7 @@ const handlers = {
         data: { user },
       },
     } = action;
+    console.log('AUTH_REQUEST_SUCCESS');
     draftState.isFetching = false;
     draftState.user = [user];
   }),
@@ -25,6 +26,7 @@ const handlers = {
     const {
       payload: { error },
     } = action;
+    console.dir(action);
     draftState.isFetching = false;
     draftState.error = error;
   }),
