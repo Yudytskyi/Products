@@ -1,0 +1,53 @@
+/**
+ * Application styles config
+ */
+$maxWidth: 100vw;
+$ContentContainerWidth: calc(1148px + 2 * 16px);
+$headerHeight: 80px;
+
+// -------- UI elements parameters --------
+
+$borderRadius: 3px;
+
+// -------- Devices sizes (for min width) --------
+
+// The Standard Bootstrap 4.x Breakpoints
+
+$deviceSizeLS: 1920px;
+$deviceSizeLG: 1366px;
+$deviceSizeMD: 1024px;
+$deviceSizeSM: 768px;
+$deviceSizeXS: 575px;
+
+// -------- Fonts --------
+
+// Weight group
+
+$fontWeightMedium: 500;
+$fontWeightBlack: 900;
+$fontWeightThin: 300;
+$fontWeightBase: 400;
+$fontWeightBold: 700;
+
+// Line height group
+
+$lineHeightBase: 1.5em;
+
+// Size group
+
+$fontSizeLittle: 12px;
+$fontSizeSmall: 14px;
+$fontSizeBase: 16px;
+$fontSizeSecond: 18px;
+$fontSizeMiddle: 20px;
+$fontSizeML: 22px;
+$fontSizeLarge: 24px;
+$fontSizeLB: 36px;
+$fontSizeBig: 48px;
+$fontSizeXXL: 80px;
+
+// -------- Animation durations --------
+
+$animTimeDefault: 0.25s;
+$animTimeSlow: 0.3s;
+$animTimeFast: 0.2s;
