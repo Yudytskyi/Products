@@ -1,0 +1,87 @@
+@import '../../../styles/index.scss';
+
+//  Login & Signup Form
+
+.formWrapper {
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.18, 0.89, 0.46, 1.11);
+
+  input[type='text'],
+  input[type='password'],
+  button,
+  .role {
+    color: #757575;
+    background: #fff;
+    border: none;
+    font-size: 27px;
+    font-family: 'Raleway', sans-serif;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    opacity: 1;
+    text-indent: 20px;
+    transition: all 0.3s ease-in-out;
+
+    &::placeholder {
+      color: #c3bfbf;
+    }
+  }
+
+  .inputWrapper,
+  button,
+  .role {
+    background: #fff;
+    border-radius: 8px;
+    height: 0px;
+    height: 72px;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  .inputWrapper {
+    position: relative;
+  }
+
+  .role {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    label {
+      width: 33%;
+      padding-left: 20px;
+    }
+  }
+
+  button {
+    background: #079bcf;
+    color: #fff;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    span {
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.46, 1.11);
+    }
+
+    &:hover {
+      background: #007ba5;
+    }
+  }
+}
+.error {
+  position: absolute;
+  z-index: 10000;
+  top: 50%;
+  right: 10px;
+  max-width: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  color: #800;
+  flex-flow: row nowrap;
+}
+
+pre {
+  color: black;
+}
