@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import styles from './styles.module.scss';
 import validate from './Validate';
+import { ReactSVG } from 'react-svg';
+import { eye_visible_svg, eye_invisible_svg } from './icons';
 
 const Error = ({ name }) => (
   <Field
@@ -14,6 +16,8 @@ const Error = ({ name }) => (
 );
 
 export const LoginSignupForm = ({ formName, onSubmit }) => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -64,8 +68,18 @@ export const LoginSignupForm = ({ formName, onSubmit }) => {
                 name="password"
                 component="input"
                 placeholder="Password"
-                type="password"
+                type={isShowPassword ? 'text' : 'password'}
               />
+              <div
+                className={styles.showPassword}
+                onMouseDown={() => setIsShowPassword(true)}
+                onMouseUp={() => setIsShowPassword(false)}
+              >
+                <ReactSVG
+                  className={styles.showPasswordIcon}
+                  src={isShowPassword ? eye_invisible_svg : eye_visible_svg}
+                />
+              </div>
               <Error name="password" />
             </li>
             <li className={styles.inputWrapper} name="repass">
