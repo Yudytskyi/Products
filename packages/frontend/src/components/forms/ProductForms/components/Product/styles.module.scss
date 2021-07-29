@@ -1,0 +1,43 @@
+@import '../../../../../styles/index.scss';
+
+//  Product buttons
+
+.buttonsWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  // background: #fff;
+  border-radius: 8px;
+  height: 0px;
+  height: 72px;
+  width: 100%;
+  margin-bottom: 10px;
+  overflow: hidden;
+  button {
+    width: 49%;
+    height: 100%;
+    border-radius: 8px;
+    background: #079bcf;
+    color: #fff;
+    font-size: 27px;
+    font-family: 'Raleway', sans-serif;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    span {
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.46, 1.11);
+    }
+
+    &:hover {
+      background: #007ba5;
+    }
+  }
+}

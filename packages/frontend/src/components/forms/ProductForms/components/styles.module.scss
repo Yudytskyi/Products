@@ -1,4 +1,4 @@
-@import '../../../styles/index.scss';
+@import '../../../../styles/index.scss';
 
 //  Product Form
 
@@ -94,61 +94,7 @@
     }
   }
 }
-.error {
-  position: absolute;
-  z-index: 10000;
-  top: 50%;
-  right: 10px;
-  max-width: 50%;
-  transform: translateY(-50%);
-  font-weight: bold;
-  color: #800;
-  flex-flow: row nowrap;
-}
 
-pre {
-  color: black;
-}
-
-.downshift {
-  display: flex;
-  color: #757575;
-  text-indent: 20px;
-  text-transform: capitalize;
-  border-radius: 8px;
-  text-indent: 20px;
-
-  input {
-    color: #757575;
-    background: #fff;
-    border: none;
-    font-size: 27px;
-    font-family: 'Raleway', sans-serif;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    opacity: 1;
-    text-indent: 20px;
-    border-radius: 8px;
-    transition: all 0.3;
-  }
-}
-
-.downshiftList {
-  position: relative;
-  color: #fff;
-  background-image: linear-gradient(rgba(0, 193, 24, 1), rgba(193, 0, 0, 0.6));
-  border-radius: 8px;
-  position: absolute;
-  max-height: 500px;
-  overflow: auto;
-  top: 70%;
-  left: 0;
-  right: 0;
-  padding: 15px;
-  font-size: 15px;
-  z-index: 4;
-}
 .label {
   position: absolute;
   top: 50%;
@@ -156,40 +102,4 @@ pre {
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;
   z-index: 1000;
-}
-
-.buttonsWrapper {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease-in-out;
-  // background: #fff;
-  border-radius: 8px;
-  height: 0px;
-  height: 72px;
-  width: 100%;
-  margin-bottom: 10px;
-  overflow: hidden;
-  button {
-    width: 49%;
-    height: 100%;
-    border-radius: 8px;
-    background: #079bcf;
-    color: #fff;
-    font-size: 27px;
-    font-family: 'Raleway', sans-serif;
-    text-transform: capitalize;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    span {
-      display: block;
-      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.46, 1.11);
-    }
-
-    &:hover {
-      background: #007ba5;
-    }
-  }
 }

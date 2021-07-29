@@ -1,7 +1,8 @@
 import React from 'react';
 import Downshift from 'downshift';
 import { matchSorter } from 'match-sorter';
-import style from './styles.module.scss';
+import styles from './styles.module.scss';
+
 const itemToString = (item) => (item ? item : '');
 
 const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
@@ -16,7 +17,7 @@ const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
     {({ getInputProps, getItemProps, isOpen, inputValue }) => {
       const filteredItems = matchSorter(items, inputValue);
       return (
-        <div className={style.downshift}>
+        <div className={styles.downshift}>
           <input
             {...getInputProps({
               name: input.name,
@@ -24,7 +25,7 @@ const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
             })}
           />
           {isOpen && !!filteredItems.length && (
-            <div className={style.downshiftList}>
+            <div className={styles.downshiftList}>
               {filteredItems.map((value) => (
                 <div {...getItemProps({ key: value, item: value })}>
                   {value}

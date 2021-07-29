@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import styles from './styles.module.scss';
 import validate from './Validate';

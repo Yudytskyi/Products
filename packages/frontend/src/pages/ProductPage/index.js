@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { ProductForm } from '../../components';
+import { ProductForms } from '../../components/forms';
 import styles from './styles.module.scss';
 import { animationEffects } from './animationEffects';
 
@@ -11,10 +11,12 @@ const ProductPage = () => {
   }, [null]);
   useLayoutEffect(() => animationEffects(currentForm));
 
-  const onSubmit = (values, form) => {
+  const onSubmit = values => {
+    window.alert(currentForm);
     window.alert(JSON.stringify(values, 0, 2));
-    form.reset();
   };
+
+  const ProductForm = () => ProductForms[currentForm](onSubmit);
 
   return (
     <section className={styles.section}>
@@ -56,7 +58,7 @@ const ProductPage = () => {
             </div>
           </div>
         </header>
-        <ProductForm formName={currentForm} onSubmit={onSubmit} />
+        <ProductForm />
       </article>
     </section>
   );

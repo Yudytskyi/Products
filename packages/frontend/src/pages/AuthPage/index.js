@@ -31,8 +31,8 @@ const AuthPage = () => {
 
   const onSubmit = (values, form) => {
     window.alert(JSON.stringify(values, 0, 2));
-    form.reset();
     requests[currentForm](values);
+    form.reset();
   };
 
   return (
