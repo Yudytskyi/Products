@@ -8,7 +8,7 @@ import {
   validatePage,
 } from '../components';
 
-const initialValues = { productType: 'phone', dualSim: false };
+const initialValues = { productType: 'tablet' };
 
 const CreateProductForm = onSubmit => {
   return (

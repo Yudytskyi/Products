@@ -9,11 +9,19 @@ import {
   validatePage,
 } from '../components';
 
-const initialValues = { productType: 'phone', dualSim: false };
+const productResponse = {
+  productName: 'sku125',
+  productType: 'laptop',
+  weight: 1125,
+  color: 'color125',
+  price: 125.25,
+  graphicsCard: true,
+  graphicsCardName: 'cool graphicsCard125',
+};
 
 const UpdateProductForm = onSubmit => {
   return (
-    <Product initialValues={initialValues} onSubmit={onSubmit}>
+    <Product initialValues={productResponse} onSubmit={onSubmit}>
       <ProductIdForm id="ProductIdForm" />
       <ProductNameForm />
       <ProductTypeForm />

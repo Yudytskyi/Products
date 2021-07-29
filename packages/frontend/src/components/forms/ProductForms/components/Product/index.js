@@ -49,7 +49,6 @@ class Product extends Component {
 
   render() {
     const { page, values } = this.state;
-    const activePage = this.state.children[page];
     const isLastPage = !this.state.children[page + 1];
 
     return (
@@ -58,23 +57,31 @@ class Product extends Component {
         validate={this.validate}
         onSubmit={this.handleSubmit}
       >
-        {({ handleSubmit, errors }) => (
-          <form onSubmit={handleSubmit}>
-            {activePage}
-            <div className={styles.buttonsWrapper}>
-              <button
-                type="button"
-                disabled={page < 1}
-                onClick={() => this.prev(page)}
-              >
-                « Prev
-              </button>
-              <button type="submit" disabled={Object.keys(errors).length}>
-                {isLastPage ? ' Submit' : 'Next »'}
-              </button>
-            </div>
-          </form>
-        )}
+        {({ handleSubmit, errors, values }) => {
+          const nativeProps = this.state.children[page].props;
+          const activePage = {
+            ...this.state.children[page],
+            props: { ...nativeProps, values },
+          };
+
+          return (
+            <form onSubmit={handleSubmit}>
+              {activePage}
+              <div className={styles.buttonsWrapper}>
+                <button
+                  type="button"
+                  disabled={page < 1}
+                  onClick={() => this.prev(page)}
+                >
+                  « Prev
+                </button>
+                <button type="submit" disabled={Object.keys(errors).length}>
+                  {isLastPage ? ' Submit' : 'Next »'}
+                </button>
+              </div>
+            </form>
+          );
+        }}
       </Form>
     );
   }

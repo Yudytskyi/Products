@@ -12,8 +12,7 @@ const ProductPage = () => {
   useLayoutEffect(() => animationEffects(currentForm));
 
   const onSubmit = values => {
-    window.alert(currentForm);
-    window.alert(JSON.stringify(values, 0, 2));
+    window.alert(JSON.stringify({ currentForm, ...values }, 0, 2));
   };
 
   const ProductForm = () => ProductForms[currentForm](onSubmit);
