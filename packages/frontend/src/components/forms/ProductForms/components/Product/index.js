@@ -40,10 +40,12 @@ class Product extends Component {
     if (isLastPage) {
       form.restart();
       this.setState({ page: 0 });
-      return onSubmit(values);
+      return onSubmit('response', values);
     } else {
       this.next(values, page);
-      return formName === 'ProductIdForm' ? onSubmit(values) : undefined;
+      return formName === 'ProductIdForm'
+        ? onSubmit('request product by id', values)
+        : undefined;
     }
   };
 

@@ -11,8 +11,8 @@ const ProductPage = () => {
   });
   useLayoutEffect(() => animationEffects(currentForm));
 
-  const onSubmit = values => {
-    currentForm === 'update'
+  const onSubmit = (type, values) => {
+    type === 'request product by id'
       ? window.alert(`get product by id:${values.productId}`)
       : window.alert(JSON.stringify({ currentForm, ...values }, 0, 2));
   };
