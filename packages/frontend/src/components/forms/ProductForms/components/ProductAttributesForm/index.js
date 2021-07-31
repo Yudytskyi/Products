@@ -6,7 +6,7 @@ import {
   length,
   requiredField,
   price,
-} from '../../Validate';
+} from '../../../../../validate';
 import DownshiftInput from './DownshiftInput';
 import colors from './colors';
 import styles from './styles.module.scss';

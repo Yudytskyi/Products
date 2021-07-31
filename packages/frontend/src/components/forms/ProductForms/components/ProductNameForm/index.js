@@ -1,7 +1,11 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import { Error } from '..';
-import { composeValidators, length, requiredField } from '../../Validate';
+import {
+  composeValidators,
+  length,
+  requiredField,
+} from '../../../../../validate';
 import styles from '../styles.module.scss';
 
 export const ProductNameForm = ({ required }) => {
