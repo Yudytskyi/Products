@@ -5,16 +5,9 @@ const marginLeftValues = {
   delete: '87.5%',
 };
 
-const formPages = {
-  create: ['productName', 'productType', 'attributes'],
-  get: ['productId'],
-  update: ['productId', 'productName', 'productType', 'attributes'],
-  delete: ['productId'],
-};
-
-export const animationEffects = (currentForm) => {
+export const animationEffects = currentForm => {
   // add active type on selected form
-  document.querySelectorAll('li').forEach((li) => {
+  document.querySelectorAll('li').forEach(li => {
     li.id === currentForm
       ? li.setAttribute('active', 'true')
       : li.removeAttribute('active');

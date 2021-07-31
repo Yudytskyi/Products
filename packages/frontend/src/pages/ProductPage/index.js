@@ -8,11 +8,13 @@ const ProductPage = () => {
   useEffect(() => {
     document.getElementById('logoLink').setAttribute('href', 'productLogo.png');
     document.getElementById('title').innerHTML = 'Product';
-  }, [null]);
+  });
   useLayoutEffect(() => animationEffects(currentForm));
 
   const onSubmit = values => {
-    window.alert(JSON.stringify({ currentForm, ...values }, 0, 2));
+    currentForm === 'update'
+      ? window.alert(`get product by id:${values.productId}`)
+      : window.alert(JSON.stringify({ currentForm, ...values }, 0, 2));
   };
 
   const ProductForm = () => ProductForms[currentForm](onSubmit);
@@ -24,38 +26,34 @@ const ProductPage = () => {
           <ul className={styles.formNames}>
             <li
               id="create"
-              className={styles.signup}
+              className={styles.title}
               onClick={() => setCurrentForm('create')}
             >
               create
             </li>
             <li
               id="get"
-              className={styles.signup}
+              className={styles.title}
               onClick={() => setCurrentForm('get')}
             >
               get
             </li>
             <li
               id="update"
-              className={styles.signup}
+              className={styles.title}
               onClick={() => setCurrentForm('update')}
             >
               update
             </li>
             <li
               id="delete"
-              className={styles.signup}
+              className={styles.title}
               onClick={() => setCurrentForm('delete')}
             >
               delete
             </li>
           </ul>
-          <div id="arrowWrapper" className={styles.arrowWrapper}>
-            <div className={styles.arrow}>
-              <div />
-            </div>
-          </div>
+          <div id="arrowWrapper" className={styles.arrow} />
         </header>
         <ProductForm />
       </article>

@@ -1,8 +1,6 @@
 export const requiredField = value =>
   value ? undefined : '* field is required!';
 
-export const number = value => (isNaN(value) ? 'Must be a number' : undefined);
-
 export const price = value => (isNaN(value) ? 'Must be a number' : undefined);
 
 export const length = (minLength, maxLength) => values =>

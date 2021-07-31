@@ -6,6 +6,10 @@ export const ProductTypeForm = () => {
   return (
     <div className={styles.formWrapper}>
       <div className={styles.inputWrapper}>
+        <div className={styles.label}>
+          <label>product type</label>
+          <span>►</span>
+        </div>
         <div className={styles.type}>
           <label>
             <Field

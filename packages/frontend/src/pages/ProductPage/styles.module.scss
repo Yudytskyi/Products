@@ -11,9 +11,10 @@ body {
   align-items: center;
 
   .article {
-    max-width: 600px;
+    max-width: 700px;
     min-width: 360px;
     width: 100%;
+    padding-left: 100px;
 
     .formHeader {
       .formNames {
@@ -36,42 +37,26 @@ body {
             opacity: 1;
           }
           &[active] {
-            text-shadow: 1px 1px 0px #007ba5;
+            text-shadow: 2px 2px 5px black;
             opacity: 1;
           }
         }
-        .login {
-          text-align: left;
-        }
-        .signup {
+
+        .title {
           text-align: center;
-        }
-        .logout {
-          text-align: right;
         }
       }
     }
   }
-  .arrowWrapper {
-    transition: margin 0.5s cubic-bezier(0.18, 0.89, 0.46, 1.11);
-
-    .arrow {
-      position: relative;
-      width: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 18px;
-      overflow: hidden;
-      transform: translateX(-50%);
-      div {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        transform: rotate(45deg) translate(30%, 30%);
-        transform-origin: center center;
-        background-color: white;
-      }
+  .arrow {
+    position: relative;
+    height: 20px;
+    transition: all 0.5s cubic-bezier(0.18, 0.89, 0.46, 1.11);
+    &::after {
+      position: absolute;
+      content: '▲';
+      font-size: 36px;
+      transform: translate(-18px, -18px);
     }
   }
 }

@@ -14,19 +14,19 @@ const AuthPage = () => {
   useEffect(() => {
     document.getElementById('logoLink').setAttribute('href', 'authLogo.png');
     document.getElementById('title').innerHTML = 'Authentication';
-  }, [null]);
+  });
 
   useLayoutEffect(() => animationEffects(currentForm));
 
   const dispatch = useDispatch();
   const requests = {
-    login: (values) => {
+    login: values => {
       dispatch(loginRequest(values));
     },
-    signup: (values) => {
+    signup: values => {
       dispatch(signupRequest(values));
     },
-    logout: (values) => dispatch(logoutRequest(values)),
+    logout: values => dispatch(logoutRequest(values)),
   };
 
   const onSubmit = (values, form) => {

@@ -3,7 +3,6 @@ import { ProductNameForm } from './ProductNameForm';
 import { ProductTypeForm } from './ProductTypeForm';
 import { ProductAttributesForm } from './ProductAttributesForm';
 import { Error } from './Error';
-import { validate, validatePage } from './Validate';
 
 export {
   ProductIdForm,
@@ -11,6 +10,4 @@ export {
   ProductTypeForm,
   ProductAttributesForm,
   Error,
-  validate,
-  validatePage,
 };

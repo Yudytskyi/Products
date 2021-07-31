@@ -6,10 +6,9 @@ import {
   ProductNameForm,
   ProductTypeForm,
   ProductAttributesForm,
-  validatePage,
 } from '../components';
 
-const productResponse = {
+const productResponseExample = {
   productName: 'sku125',
   productType: 'laptop',
   weight: 1125,
@@ -21,11 +20,11 @@ const productResponse = {
 
 const UpdateProductForm = onSubmit => {
   return (
-    <Product initialValues={productResponse} onSubmit={onSubmit}>
-      <ProductIdForm id="ProductIdForm" />
+    <Product initialValues={productResponseExample} onSubmit={onSubmit}>
+      <ProductIdForm required={true} />
       <ProductNameForm />
       <ProductTypeForm />
-      <ProductAttributesForm validate={validatePage} />
+      <ProductAttributesForm />
     </Product>
   );
 };

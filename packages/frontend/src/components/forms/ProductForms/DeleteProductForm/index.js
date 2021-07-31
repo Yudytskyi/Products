@@ -6,7 +6,7 @@ import { ProductIdForm } from '../components';
 const DeleteProductForm = onSubmit => {
   return (
     <Product onSubmit={onSubmit}>
-      <ProductIdForm />
+      <ProductIdForm required={true} />
     </Product>
   );
 };

@@ -57,7 +57,7 @@ class Product extends Component {
         validate={this.validate}
         onSubmit={this.handleSubmit}
       >
-        {({ handleSubmit, errors, values }) => {
+        {({ handleSubmit, values, submitting }) => {
           const nativeProps = this.state.children[page].props;
           const activePage = {
             ...this.state.children[page],
@@ -75,7 +75,7 @@ class Product extends Component {
                 >
                   « Prev
                 </button>
-                <button type="submit" disabled={Object.keys(errors).length}>
+                <button type="submit" disabled={submitting}>
                   {isLastPage ? ' Submit' : 'Next »'}
                 </button>
               </div>
