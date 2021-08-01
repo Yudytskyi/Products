@@ -1,64 +1,67 @@
-const marginLeftValues = {
-  login: '40px',
-  signup: '50%',
-  logout: 'calc(100% - 40px)',
+const forms = {
+  login: {
+    fields: ['email', 'password'],
+    marginLeftValue: '16.6667%',
+  },
+  signup: {
+    fields: [
+      'firstName',
+      'lastName',
+      'userName',
+      'email',
+      'password',
+      'repass',
+      'role',
+    ],
+    marginLeftValue: '50%',
+  },
+  logout: { fields: ['email'], marginLeftValue: '83.3333%' },
 };
 
-const formInputs = {
-  login: ['email', 'password'],
-  signup: [
-    'firstName',
-    'lastName',
-    'userName',
-    'email',
-    'password',
-    'repass',
-    'role',
-  ],
-  logout: ['email'],
-};
+export const animationEffects = currentForm => {
+  const form = forms[currentForm];
 
-export const animationEffects = (currentForm) => {
   // add active type on selected form
-  document.querySelectorAll('li').forEach((li) => {
+  document.querySelectorAll('li').forEach(li => {
     li.id === currentForm
       ? li.setAttribute('active', 'true')
       : li.removeAttribute('active');
   });
 
   // set arrow on active form
-  document.getElementById('arrowWrapper').style.marginLeft =
-    marginLeftValues[currentForm];
+  document.getElementById('arrow').style.marginLeft = form.marginLeftValue;
 
   // add rotation on button title
-  setTimeout(() => {
-    document.getElementById('submit').style.transform =
-      'rotate3d(1, 0, 0, 0deg)';
-  }, 300);
+  const submitButton = document.getElementById('submit');
+  if (submitButton) {
+    setTimeout(() => {
+      submitButton.style.transform = 'rotate3d(0, 1, 0, 0deg)';
+    }, 100);
+  }
 
   // create current form
-  const container = document.querySelector('#inputList');
-  const inputWrappers = container.querySelectorAll('li');
-  inputWrappers.forEach((element) => {
-    const name = element.attributes.name?.value;
-
-    if (name && !formInputs[currentForm].includes(name)) {
-      element.style.height = '0px';
-      element.style.margin = 0;
+  form.fields.forEach((field, i) => {
+    const formInput = document.getElementById(field);
+    const timeout = 300 / form.fields.length;
+    if (formInput) {
+      formInput.style.height = '0px';
+      formInput.style.overflow = 'hidden';
+      setTimeout(() => {
+        formInput.style.height = '72px';
+        formInput.style.overflow = '';
+      }, i * timeout);
     }
   });
 
-  // form.reset();
+  // change title and logo
+  document
+    .getElementById('logoLink')
+    .setAttribute('href', `./logos/${currentForm}.png`);
+  document.getElementById('title').innerHTML = currentForm;
 
   return () => {
     // before changed form type deleted rotation
     document.getElementById('submit').style.transform =
-      'rotate3d(1, 0, 0, 90deg)';
-
-    // before changed form type set default value of height and margin
-    inputWrappers.forEach((element) => {
-      element.style.height = '';
-      element.style.margin = '';
-    });
+      'rotate3d(0, 1, 0, 90deg)';
   };
 };

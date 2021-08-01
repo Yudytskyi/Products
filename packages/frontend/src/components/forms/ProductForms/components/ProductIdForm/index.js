@@ -9,7 +9,7 @@ export const ProductIdForm = ({ required }) => {
 
   return (
     <div className={styles.formWrapper}>
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} id="productId">
         <div className={styles.label}>
           <label>product id</label>
           <span>►</span>

@@ -5,7 +5,7 @@ import styles from '../styles.module.scss';
 export const ProductTypeForm = () => {
   return (
     <div className={styles.formWrapper}>
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} id="productType">
         <div className={styles.label}>
           <label>product type</label>
           <span>►</span>

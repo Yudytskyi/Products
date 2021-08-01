@@ -1,31 +1,31 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import { Error } from '..';
+import styles from '../styles.module.scss';
 import {
   composeValidators,
   length,
   requiredField,
 } from '../../../../../validate';
-import styles from '../styles.module.scss';
 
-export const ProductNameForm = ({ required }) => {
+export const UserName = ({ required }) => {
   const require = required ? requiredField : undefined;
 
   return (
-    <div className={styles.formWrapper}>
-      <div className={styles.inputWrapper} id="productName">
+    <div className={styles.formWrapper} id="userName">
+      <div className={styles.inputWrapper}>
         <div className={styles.label}>
-          <label>product name</label>
+          <label>user name</label>
           <span>►</span>
         </div>
         <Field
-          name="productName"
+          name="userName"
           component="input"
           type="text"
-          placeholder="Product Name"
+          placeholder="userName"
           validate={composeValidators(require, length(3, 32))}
         />
-        <Error name="productName" />
+        <Error name="userName" />
       </div>
     </div>
   );

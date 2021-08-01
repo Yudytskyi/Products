@@ -1,4 +1,4 @@
 import { ProductForms } from './ProductForms';
-import { LoginSignupForm } from './LoginSignupForm';
+import { AuthForms } from './AuthForms';
 
-export { ProductForms, LoginSignupForm };
+export { ProductForms, AuthForms };

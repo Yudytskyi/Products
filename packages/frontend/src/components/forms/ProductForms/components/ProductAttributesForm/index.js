@@ -33,7 +33,7 @@ export const ProductAttributesForm = ({
 
   return (
     <div className={styles.formWrapper}>
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} id="weight">
         <div className={styles.label}>
           <label>weight</label>
           <span>►</span>
@@ -48,7 +48,7 @@ export const ProductAttributesForm = ({
         />
         <Error name="weight" />
       </div>
-      <div className={styles.colorWrapper}>
+      <div className={styles.colorWrapper} id="color">
         <div className={styles.label}>
           <label>color</label>
           <span>►</span>
@@ -62,7 +62,7 @@ export const ProductAttributesForm = ({
         />
         <Error name="color" />
       </div>
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} id="price">
         <div className={styles.label}>
           <label>price</label>
           <span>►</span>
@@ -77,7 +77,7 @@ export const ProductAttributesForm = ({
         <Error name="price" />
       </div>
       {productType === 'phone' ? (
-        <div className={styles.inputWrapper}>
+        <div className={styles.inputWrapper} id="dualSim">
           <div className={styles.label}>
             <label>dual sim</label>
             <span>►</span>
@@ -87,7 +87,7 @@ export const ProductAttributesForm = ({
         </div>
       ) : null}
       {productType === 'laptop' ? (
-        <div className={styles.inputWrapper}>
+        <div className={styles.inputWrapper} id="graphicsCard">
           <div className={styles.label}>
             <label>graphics card</label>
             <span>►</span>

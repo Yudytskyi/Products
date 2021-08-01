@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { LoginSignupForm } from '../../components';
+import React, { useState, useLayoutEffect } from 'react';
+import { AuthForms } from '../../components/forms';
 import { useDispatch } from 'react-redux';
 import {
   loginRequest,
@@ -11,10 +11,6 @@ import { animationEffects } from './animationEffects';
 
 const AuthPage = () => {
   const [currentForm, setCurrentForm] = useState('login');
-  useEffect(() => {
-    document.getElementById('logoLink').setAttribute('href', 'authLogo.png');
-    document.getElementById('title').innerHTML = 'Authentication';
-  });
 
   useLayoutEffect(() => animationEffects(currentForm));
 
@@ -29,11 +25,12 @@ const AuthPage = () => {
     logout: values => dispatch(logoutRequest(values)),
   };
 
-  const onSubmit = (values, form) => {
-    window.alert(JSON.stringify(values, 0, 2));
+  const onSubmit = (formName, values) => {
+    window.alert(JSON.stringify({ formName, ...values }, 0, 2));
     requests[currentForm](values);
-    form.reset();
   };
+
+  const AuthForm = () => AuthForms[currentForm](onSubmit);
 
   return (
     <section className={styles.section}>
@@ -42,33 +39,31 @@ const AuthPage = () => {
           <ul className={styles.formNames}>
             <li
               id="login"
-              className={styles.login}
+              className={styles.title}
               onClick={() => setCurrentForm('login')}
             >
               login
             </li>
             <li
               id="signup"
-              className={styles.signup}
+              className={styles.title}
               onClick={() => setCurrentForm('signup')}
             >
-              sign up
+              signup
             </li>
             <li
               id="logout"
-              className={styles.logout}
+              className={styles.title}
               onClick={() => setCurrentForm('logout')}
             >
-              log out
+              logout
             </li>
           </ul>
-          <div id="arrowWrapper" className={styles.arrowWrapper}>
-            <div className={styles.arrow}>
-              <div />
-            </div>
-          </div>
+          <div id="arrow" className={styles.arrow} />
         </header>
-        <LoginSignupForm formName={currentForm} onSubmit={onSubmit} />
+        <div id={'inputList'}>
+          <AuthForm />
+        </div>
       </article>
     </section>
   );

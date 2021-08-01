@@ -1,0 +1,13 @@
+//  Error
+
+.error {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 10px;
+  max-width: 50%;
+  line-height: 20px;
+  font-weight: bold;
+  color: #800;
+  flex-flow: row nowrap;
+}

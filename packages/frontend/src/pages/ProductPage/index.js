@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { ProductForms } from '../../components/forms';
 import styles from './styles.module.scss';
 import { animationEffects } from './animationEffects';
 
 const ProductPage = () => {
   const [currentForm, setCurrentForm] = useState('create');
-  useEffect(() => {
-    document.getElementById('logoLink').setAttribute('href', 'productLogo.png');
-    document.getElementById('title').innerHTML = 'Product';
-  });
-  useLayoutEffect(() => animationEffects(currentForm));
+  const [page, setPage] = useState(0);
+  useLayoutEffect(() => animationEffects(currentForm), [currentForm, page]);
 
   const onSubmit = (type, values) => {
     type === 'request product by id'
@@ -55,7 +52,7 @@ const ProductPage = () => {
           </ul>
           <div id="arrowWrapper" className={styles.arrow} />
         </header>
-        <ProductForm />
+        <ProductForm setPage={setPage} />
       </article>
     </section>
   );
