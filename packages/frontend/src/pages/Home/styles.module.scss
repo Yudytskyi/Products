@@ -1,0 +1,59 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
+
+//  Home page
+
+.section {
+  background: center center no-repeat
+    url('../../../src/assets/backgrounds/pngwing.com2.png');
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .article {
+    max-width: 30vw;
+    max-height: 30vw;
+    min-width: 30vw;
+    min-height: 30vw;
+    padding: 5vw 0;
+    background-color: rgba(75, 75, 75, 0.3);
+    border-radius: 15px;
+    box-shadow: 40px 40px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .formHeader {
+      font-size: 62px;
+      font-weight: 900;
+      line-height: 60px;
+      text-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    span {
+      width: 33%;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 15px 15px 10px rgba(75, 75, 75, 0.6);
+      list-style-type: none;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 800;
+      opacity: 0.5;
+      text-transform: uppercase;
+      transition: opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1),
+        text-shadow 0.5s cubic-bezier(0.6, 0, 0.4, 1);
+
+      &:hover {
+        opacity: 1;
+      }
+      &[active] {
+        text-shadow: 2px 2px 5px black;
+        opacity: 1;
+      }
+    }
+  }
+}

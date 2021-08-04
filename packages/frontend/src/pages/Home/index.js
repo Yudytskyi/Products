@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './styles.module.scss';
 
 const Home = () => {
   useEffect(() => {
@@ -10,18 +11,17 @@ const Home = () => {
   });
 
   return (
-    <div>
-      <h1>Home</h1>
-      <Link to="/user">
-        <span>Authentication</span>
-      </Link>
-      <br />
-      <br />
-      <br />
-      <Link to="/product">
-        <span>Product</span>
-      </Link>
-    </div>
+    <section className={styles.section}>
+      <article className={styles.article}>
+        <h1 className={styles.formHeader}>Home</h1>
+        <Link to="/user">
+          <span>Authentication</span>
+        </Link>
+        <Link to="/product">
+          <span>Product</span>
+        </Link>
+      </article>
+    </section>
   );
 };
 

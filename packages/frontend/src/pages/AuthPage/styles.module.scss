@@ -1,10 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
 
 //  Auth page
-body {
-  background-image: linear-gradient(#78b3e6, #02c7b3);
-}
+
 .section {
+  background: center center no-repeat
+    url('../../../src/assets/backgrounds/Daco_4394205.png');
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -24,11 +25,16 @@ body {
 
         li {
           width: 33%;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 15px;
+          padding: 15px;
+          box-shadow: 15px 15px 10px rgba(75, 75, 75, 0.3);
+          margin: 5px;
           list-style-type: none;
           cursor: pointer;
           font-size: 22px;
           font-weight: 800;
-          opacity: 0.5;
+          opacity: 0.8;
           text-transform: uppercase;
           transition: opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1),
             text-shadow 0.5s cubic-bezier(0.6, 0, 0.4, 1);
