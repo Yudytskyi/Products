@@ -14,8 +14,8 @@ export const password = value =>
     ? undefined
     : '* the password must be from 8 to 64 characters long, contain letters of different case and numbers';
 
-export const equal = password => value =>
-  value === password ? undefined : '* incorrect password confirmation';
+export const equal = ({ password, repass }) =>
+  password === repass ? {} : { repass: '* incorrect password confirmation' };
 
 export const length = (minLength, maxLength) => values =>
   values?.length < minLength

@@ -5,8 +5,7 @@ import { animationEffects } from './animationEffects';
 
 const ProductPage = () => {
   const [currentForm, setCurrentForm] = useState('create');
-  const [page, setPage] = useState(0);
-  useLayoutEffect(() => animationEffects(currentForm), [currentForm, page]);
+  useLayoutEffect(() => animationEffects(currentForm));
 
   const onSubmit = (type, values) => {
     type === 'request product by id'
@@ -52,7 +51,7 @@ const ProductPage = () => {
           </ul>
           <div id="arrowWrapper" className={styles.arrow} />
         </header>
-        <ProductForm setPage={setPage} />
+        <ProductForm />
       </article>
     </section>
   );

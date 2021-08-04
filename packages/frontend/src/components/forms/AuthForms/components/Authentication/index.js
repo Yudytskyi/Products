@@ -3,9 +3,7 @@ import { Form } from 'react-final-form';
 import styles from './styles.module.scss';
 
 class Authentication extends Component {
-  validate = values => {
-    return this.props.validate ? this.props.validate(values) : {};
-  };
+  validate = values => (this.props.validate ? this.props.validate(values) : {});
 
   handleSubmit = (values, form) => {
     const { children, onSubmit } = this.props;

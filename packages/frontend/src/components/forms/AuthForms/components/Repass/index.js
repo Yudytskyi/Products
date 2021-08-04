@@ -7,14 +7,8 @@ import {
   eye_visible_svg,
   eye_invisible_svg,
 } from '../../../../../assets/icons';
-import {
-  composeValidators,
-  equal,
-  requiredField,
-} from '../../../../../validate';
 
-export const Repass = ({ required, password }) => {
-  const require = required ? requiredField : undefined;
+export const Repass = () => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -29,10 +23,6 @@ export const Repass = ({ required, password }) => {
           component="input"
           type={visible ? 'text' : 'password'}
           placeholder=" repeat password"
-          validate={composeValidators(
-            require,
-            equal(password, value => value)
-          )}
         />
         <div
           className={styles.showPassword}

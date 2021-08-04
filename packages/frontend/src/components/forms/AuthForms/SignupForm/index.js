@@ -1,6 +1,6 @@
 import React from 'react';
 import { Authentication } from '../components';
-
+import { equal } from '../../../../validate';
 import {
   FirstName,
   LastName,
@@ -26,6 +26,7 @@ const SignupForm = onSubmit => {
     <Authentication
       initialValues={userResponseExample}
       onSubmit={onSubmit}
+      validate={equal}
       formName={'signup'}
     >
       <>
@@ -34,7 +35,7 @@ const SignupForm = onSubmit => {
         <UserName required={true} />
         <Email required={true} />
         <Password required={true} />
-        <Repass required={true} password={'testPassword'} />
+        <Repass required={true} />
         <Role required={true} />
       </>
     </Authentication>

@@ -44,17 +44,17 @@ export const animationEffects = currentForm => {
     document.getElementById(field.name) ? field : undefined
   );
 
-  // currentFormFields.forEach((field, i) => {
-  //   const formInput = document.getElementById(field);
-  //   if (formInput) {
-  //     formInput.style.height = '0px';
-  //     formInput.style.overflow = 'hidden';
-  //     setTimeout(() => {
-  //       formInput.style.height = '72px';
-  //       formInput.style.overflow = '';
-  //     }, i * timeout);
-  //   }
-  // });
+  currentFormFields.forEach((field, i) => {
+    const formInput = document.getElementById(field.name);
+    if (formInput) {
+      formInput.style.height = '0px';
+      formInput.style.overflow = 'hidden';
+      setTimeout(() => {
+        formInput.style.height = '62px';
+        formInput.style.overflow = '';
+      }, i * field.timeout);
+    }
+  });
 
   // change title and logo
   document
