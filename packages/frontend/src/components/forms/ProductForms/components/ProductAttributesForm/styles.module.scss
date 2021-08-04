@@ -24,13 +24,16 @@
     text-indent: 20px;
     border-radius: 8px;
     transition: all 0.3;
+    &::placeholder {
+      opacity: 0.5;
+    }
   }
 }
 
 .downshiftList {
+  width: max-content;
   position: relative;
-  color: #fff;
-  background-image: linear-gradient(rgba(0, 193, 24, 1), rgba(193, 0, 0, 0.6));
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 8px;
   position: absolute;
   max-height: 500px;

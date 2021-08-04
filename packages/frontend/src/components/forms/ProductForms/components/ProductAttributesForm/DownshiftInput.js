@@ -3,12 +3,12 @@ import Downshift from 'downshift';
 import { matchSorter } from 'match-sorter';
 import styles from './styles.module.scss';
 
-const itemToString = (item) => (item ? item : '');
+const itemToString = item => (item ? item : '');
 
 const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
   <Downshift
     {...input}
-    onInputValueChange={(inputValue) => {
+    onInputValueChange={inputValue => {
       input.onChange(inputValue);
     }}
     itemToString={itemToString}
@@ -26,7 +26,7 @@ const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
           />
           {isOpen && !!filteredItems.length && (
             <div className={styles.downshiftList}>
-              {filteredItems.map((value) => (
+              {filteredItems.map(value => (
                 <div {...getItemProps({ key: value, item: value })}>
                   {value}
                 </div>
