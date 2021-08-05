@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Field } from 'react-final-form';
 import { Error } from '..';
 import {
@@ -13,22 +13,19 @@ import styles from './styles.module.scss';
 
 export const ProductAttributesForm = ({
   required,
-  values: { productType, graphicsCard, graphicsCardName, dualSim },
+  values,
+  values: { productType: type, graphicsCard },
 }) => {
-  const require = required ? requiredField : undefined;
-  const [disabled, setDisabled] = useState(true);
+  const require = required ? requiredField : () => undefined;
 
-  if (productType === 'phone') {
-    graphicsCard = undefined;
-    graphicsCardName = undefined;
+  if (type === 'phone') {
+    values.graphicsCard = values.graphicsCardName = undefined;
   }
-  if (productType === 'laptop') {
-    dualSim = undefined;
+  if (type === 'laptop') {
+    values.dualSim = undefined;
   }
-  if (productType === 'tablet') {
-    graphicsCard = undefined;
-    graphicsCardName = undefined;
-    dualSim = undefined;
+  if (type === 'tablet') {
+    values.graphicsCard = values.graphicsCardName = values.dualSim = undefined;
   }
 
   return (
@@ -44,7 +41,7 @@ export const ProductAttributesForm = ({
           type="number"
           min="1"
           placeholder="weight"
-          validate={values => requiredField(values)}
+          validate={values => require(values)}
         />
         <Error name="weight" />
       </div>
@@ -76,7 +73,7 @@ export const ProductAttributesForm = ({
         />
         <Error name="price" />
       </div>
-      {productType === 'phone' ? (
+      {type === 'phone' && (
         <div className={styles.inputWrapper} id="dualSim">
           <div className={styles.label}>
             <label>dual sim</label>
@@ -85,30 +82,25 @@ export const ProductAttributesForm = ({
           <Field name="dualSim" component="input" type="checkbox" />
           <label>dual sim</label>
         </div>
-      ) : null}
-      {productType === 'laptop' ? (
+      )}
+      {type === 'laptop' && (
         <div className={styles.inputWrapper} id="graphicsCard">
           <div className={styles.label}>
             <label>graphics card</label>
             <span>►</span>
           </div>
-          <Field
-            name="graphicsCard"
-            component="input"
-            type="checkbox"
-            onClick={() => setDisabled(!disabled)}
-          />
+          <Field name="graphicsCard" component="input" type="checkbox" />
           <Field
             name="graphicsCardName"
             component="input"
             type="text"
             placeholder="graphics card name"
             validate={composeValidators(length(5, 32))}
-            disabled={disabled}
+            disabled={!graphicsCard}
           />
           <Error name="graphicsCardName" />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
